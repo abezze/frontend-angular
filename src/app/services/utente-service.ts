@@ -35,7 +35,9 @@ export class UtenteService {
   getTipiIndirizzi(){
     return this.http.get(this.urlAnag + "listTipoIndirizzo");
   }
-
+  changePwd(body:{}){
+    return this.http.put(this.url + "changePwd", body);
+  }
 
 
 }

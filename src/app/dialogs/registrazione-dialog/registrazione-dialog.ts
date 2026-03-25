@@ -40,7 +40,6 @@ export class RegistrazioneDialog implements OnInit {
     private accoutServices: UtenteService,
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<RegistrazioneDialog>
-
   ) {
     if (data) {
       this.account.set(data.account);
@@ -48,15 +47,20 @@ export class RegistrazioneDialog implements OnInit {
 
     }
 
+    this.accoutServices.getTipiIndirizzi().subscribe(resp => {
+      this.loadedTipoIndirizzo = resp;
+    });
+
+
   }
 
 
 
   ngOnInit(): void {
 
-    this.accoutServices.getTipiIndirizzi().subscribe(resp => {
+    /*this.accoutServices.getTipiIndirizzi().subscribe(resp => {
       this.loadedTipoIndirizzo = resp;
-    });
+    });*/
 
     if (this.mod == "U") {
       this.updateForm.patchValue({
@@ -75,6 +79,11 @@ export class RegistrazioneDialog implements OnInit {
       })
     }
   }
+
+  changeTipoIndirizzo(tipo : any){
+     console.log(tipo);
+  }
+
 
  onSubmit() {
     if (this.mod == 'C') this.onSubmitCreate();

@@ -3,7 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item >
+    <button mat-menu-item (click)="changePWD()">
       <mat-icon>password</mat-icon>
       <span>Cambio password</span>
     </button>
@@ -35,7 +35,9 @@
         matTooltip="Gestione del Carrello"
         [routerLink]="['/dash','cart']">
 
-    <button mat-icon-button aria-label="Carrello" >
+
+
+    <button mat-icon-button aria-label="Carrello" matBadge="15" >
       <img src="cart.svg" class="menu-icon-img" />
     </button>
     </div>

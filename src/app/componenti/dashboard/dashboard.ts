@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialogs/login-dialog/login-dialog';
 import { RegistrazioneDialog } from '../../dialogs/registrazione-dialog/registrazione-dialog';
 import { Utilities } from '../../services/utilities';
+import { ChangePassword } from '../../dialogs/change-password/change-password';
 
 @Component({
   selector: 'app-dashboard',
@@ -83,5 +84,13 @@ export class Dashboard {
 
 
     }
+
+    changePWD(){
+     this.dialog.open(ChangePassword, {
+      width: '400px',
+      disableClose: false,
+      data: {}
+    });
+  }
 
 }

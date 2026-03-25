@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatBadgeModule} from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -28,6 +29,7 @@ import { Cart } from './componenti/cart/cart';
 import { LoginDialog } from './dialogs/login-dialog/login-dialog';
 import { RegistrazioneDialog } from './dialogs/registrazione-dialog/registrazione-dialog';
 import { BikeManager } from './componenti/bike-manager/bike-manager';
+import { ChangePassword } from './dialogs/change-password/change-password';
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import { BikeManager } from './componenti/bike-manager/bike-manager';
     LoginDialog,
     RegistrazioneDialog,
     BikeManager,
+    ChangePassword,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { BikeManager } from './componenti/bike-manager/bike-manager';
     MatCardModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatBadgeModule
   ],
   providers: [
     provideHttpClient(withFetch()),

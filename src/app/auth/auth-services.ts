@@ -20,8 +20,6 @@ export class AuthServices {
       const isLogged = localStorage.getItem("isLogged") === '1';
       const isAdmin = localStorage.getItem("isAdmin") === '1';
       const userId = localStorage.getItem("userId");
-      const userName = localStorage.getItem("userName");
-      const isValidate = localStorage.getItem("isValidate") ;
 
       this.grant.set({
         isAdmin,
