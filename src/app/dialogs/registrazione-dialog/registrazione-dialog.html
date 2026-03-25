@@ -1,0 +1,106 @@
+<mat-dialog-content class="dialog-container">
+    <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <mat-card>
+        <mat-card-header class="header-center">
+            @if (mod == 'C') {
+            <mat-card-title>Creazione nuovo utente</mat-card-title>
+            } @else {
+            <mat-card-title>Profilo di {{account()?.nome}} {{account()?.cognome}}</mat-card-title>
+            }
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
+                <mat-form-field appearance="fill">
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" name="nome" formControlName="nome">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Cognome</mat-label>
+                    <input matInput type="text" name="cognome" formControlName="cognome">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" name="email" formControlName="email">
+                </mat-form-field>
+
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput type="text" name="telefono" formControlName="telefono">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Via</mat-label>
+                    <input matInput type="text" name="via" formControlName="via">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Città</mat-label>
+                    <input matInput type="text" name="citta" formControlName="citta">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Nazione</mat-label>
+                    <input matInput type="text" name="nazione" formControlName="nazione">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Codice Fiscale</mat-label>
+                    <input matInput type="text" name="codiceFiscale" formControlName="codiceFiscale">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Partita Iva</mat-label>
+                    <input matInput type="text" name="partitaIva" formControlName="partitaIva">
+                </mat-form-field>
+
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Cap</mat-label>
+                    <input matInput type="text" formControlName="cap" maxlength="5" pattern="[0-9]*" inputmode="numeric"
+                        required>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="fill">
+                    <mat-label>UserName</mat-label>
+                    <input matInput type="text" name="userName" formControlName="userName" required>
+                </mat-form-field>
+
+                @if (mod == 'C'){
+                <mat-form-field appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" name="password" formControlName="password" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Retype Password</mat-label>
+                    <input matInput type="password" name="passwordControl" formControlName="passwordControl" required>
+                </mat-form-field>
+
+                }
+                <div class="msg-error">
+                    <span style="color:red">{{ msg() }}</span>
+                </div>
+                <div class="button-group">
+                    @if (mod == 'C'){
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid"
+                        matTooltip="Salvare le modifiche">
+                        Crea nuovo utente</button>
+                    } @else {
+                         <button mat-raised-button color="primary" type="submit"
+                        matTooltip="Salvare le modifiche">
+                        Aggiorna il profilo</button>
+                    }
+
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>
+i
