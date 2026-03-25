@@ -15,7 +15,7 @@ import { Utilities } from '../../services/utilities';
 })
 export class Dashboard {
   readonly dialog = inject(MatDialog);
-  persona = signal<any | null>(null);
+  persona : any;
 
   constructor(public auth:AuthServices, private routing:Router, private util: Utilities, private ute: UtenteService){
 
@@ -42,9 +42,11 @@ export class Dashboard {
     this.ute.getUserAnags()
         .subscribe({
             next: ((r:any) => {
-              this.persona.set(r);
+              this.persona= r;
               console.log("Ramo OK");
               console.log(r);
+              console.log("PERSONA");
+              console.log(this.persona);
               /*this.updateForm.patchValue({
                 nome:r.nome,
                 cognome:r.cognome,
