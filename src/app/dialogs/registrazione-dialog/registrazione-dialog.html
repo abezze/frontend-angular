@@ -8,7 +8,7 @@
             @if (mod == 'C') {
             <mat-card-title>Creazione nuovo utente</mat-card-title>
             } @else {
-            <mat-card-title>Profilo di {{account()?.nome}} {{account()?.cognome}}</mat-card-title>
+            <mat-card-title>Profilo di {{account()?.userName}} {{account()?.nome}} {{account()?.cognome}}</mat-card-title>
             }
         </mat-card-header>
         <mat-card-content>
