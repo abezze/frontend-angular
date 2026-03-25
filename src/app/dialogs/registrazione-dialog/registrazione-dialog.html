@@ -13,6 +13,17 @@
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
+                <mat-form-field  >
+                    <mat-select formControlName="tipoIndirizzo"  placeholder="Tipo
+                            Indirizzo" [(value)]="selectedTipoIndirizzo" >
+                        <mat-option *ngFor="let lC of loadedTipoIndirizzo"
+                            [value]="lC">
+                          {{lC}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
                 <mat-form-field appearance="fill">
                     <mat-label>Nome</mat-label>
                     <input matInput type="text" name="nome" formControlName="nome">

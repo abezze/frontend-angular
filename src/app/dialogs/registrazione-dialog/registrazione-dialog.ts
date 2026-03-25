@@ -12,6 +12,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class RegistrazioneDialog implements OnInit {
   account = signal<any>(null);
   mod: any;
+  loadedTipoIndirizzo : any;
+  selectedTipoIndirizzo: String ;
 
   updateForm: FormGroup = new FormGroup({
     nome: new FormControl(null, Validators.required),
@@ -26,7 +28,8 @@ export class RegistrazioneDialog implements OnInit {
     userName: new FormControl(null, Validators.required),
     password: new FormControl(null, Validators.required),
     passwordControl: new FormControl(null, Validators.required),
-    nazione: new FormControl(null, Validators.required)
+    nazione: new FormControl(null, Validators.required),
+    tipoIndirizzo: new FormControl(null)
   })
 
 
@@ -50,6 +53,11 @@ export class RegistrazioneDialog implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.accoutServices.getTipiIndirizzi().subscribe(resp => {
+      this.loadedTipoIndirizzo = resp;
+    });
+
     if (this.mod == "U") {
       this.updateForm.patchValue({
         nome: this.account().nome,
@@ -62,7 +70,8 @@ export class RegistrazioneDialog implements OnInit {
         userName: this.account().userName,
         codiceFiscale : this.account().codiceFiscale,
         partitaIva: this.account().partitaIva,
-        nazione : this.account().nazione
+        nazione : this.account().nazione,
+        tipoIndirizzo : this.account().tipoIndirizzo
       })
     }
   }
@@ -109,6 +118,9 @@ export class RegistrazioneDialog implements OnInit {
     if (this.updateForm.controls['nazione'].dirty)
       updateBody.nazione = this.updateForm.value.nazione;
 
+    if (this.updateForm.controls['tipoIndirizzo'].dirty)
+      updateBody.tipoIndirizzo = this.updateForm.value.tipoIndirizzo;
+
     console.log(updateBody);
 
     this.accoutServices.update(updateBody)
@@ -148,7 +160,7 @@ export class RegistrazioneDialog implements OnInit {
       partitaIva : this.updateForm.value.partitaIva,
       codiceFiscale : this.updateForm.value.codiceFiscale,
       role: 'USER',
-      tipoIndirizzo : 'PRINCIPALE'
+      tipoIndirizzo : this.updateForm.value.tipoIndirizzo !=null ? this.updateForm.value.tipoIndirizzo : 'PRINCIPALE'
     }).subscribe({
       next: ((resp: any) => {
         console.log(resp);

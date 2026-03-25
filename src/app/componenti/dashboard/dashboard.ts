@@ -55,7 +55,8 @@ export class Dashboard {
                 partitaIva: r.anagrafiche[0].partitaIva,
                 nazione : r.anagrafiche[0].nazione,
                 password : r.password,
-                tipoIndirizzo : r.anagrafiche[0].tipoIndirizzo
+                tipoIndirizzo : r.anagrafiche[0].tipoIndirizzo,
+                id : r.anagrafiche[0].id
               }
 
              this.persona= r;

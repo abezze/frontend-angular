@@ -9,7 +9,6 @@ export class UtenteService {
 
   url = "http://localhost:9080/rest/utente/";
   urlAnag = "http://localhost:9080/rest/anagrafica/";
-  //http://localhost:9080/rest/utente/findByUserName?userName=admin
 
   constructor(private http:HttpClient, public auth:AuthServices){
   }
@@ -31,6 +30,10 @@ export class UtenteService {
     let params = new HttpParams().set('userName', this.auth.grant().userId);
     return this.http.get(this.url + "findByUserName", {params});
 
+  }
+
+  getTipiIndirizzi(){
+    return this.http.get(this.urlAnag + "listTipoIndirizzo");
   }
 
 
