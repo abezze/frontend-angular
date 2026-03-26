@@ -44,12 +44,8 @@ export class RegistrazioneDialog implements OnInit {
     if (data) {
       this.account.set(data.account);
       this.mod = data.mode;
-
+      this.loadedTipoIndirizzo = data.tipiIndirizzo;
     }
-
-    this.accoutServices.getTipiIndirizzi().subscribe(resp => {
-      this.loadedTipoIndirizzo = resp;
-    });
 
 
   }
@@ -58,9 +54,7 @@ export class RegistrazioneDialog implements OnInit {
 
   ngOnInit(): void {
 
-    /*this.accoutServices.getTipiIndirizzi().subscribe(resp => {
-      this.loadedTipoIndirizzo = resp;
-    });*/
+
 
     if (this.mod == "U") {
       this.updateForm.patchValue({

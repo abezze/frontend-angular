@@ -17,6 +17,7 @@ import { ChangePassword } from '../../dialogs/change-password/change-password';
 export class Dashboard {
   readonly dialog = inject(MatDialog);
   persona : any;
+  loadedTipoIndirizzo : any;
 
   constructor(public auth:AuthServices, private routing:Router, private util: Utilities, private ute: UtenteService){
 
@@ -60,11 +61,14 @@ export class Dashboard {
                 id : r.anagrafiche[0].id
               }
 
-             this.persona= r;
-             this.util.openDialog(RegistrazioneDialog,
+              this.ute.getTipiIndirizzi().subscribe(resp => {
+                this.loadedTipoIndirizzo = resp;
+                this.persona= r;
+                this.util.openDialog(RegistrazioneDialog,
                     {
                       account: anagrafica,
-                      mode: "U"
+                      mode: "U",
+                      tipiIndirizzo : this.loadedTipoIndirizzo
                     },
                     {
                       width: '90vw',
@@ -72,6 +76,9 @@ export class Dashboard {
                       height: 'auto',
                     }
                   );
+              });
+
+
 
             }),
             error: ((r:any) => {
