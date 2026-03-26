@@ -15,6 +15,7 @@ import { RegistrazioneDialog } from '../registrazione-dialog/registrazione-dialo
 })
 export class LoginDialog {
  msg = signal('');
+ loadedTipoIndirizzo : any;
   readonly dialog = inject(MatDialog);
 
   constructor(
@@ -23,7 +24,9 @@ export class LoginDialog {
     private routing: Router,
     private util: Utilities,
     private dialogRef: MatDialogRef<LoginDialog>
-  ) { }
+  ) {
+
+  }
 
   onSubmit(signin: NgForm) {
     this.account.login({
@@ -52,18 +55,22 @@ export class LoginDialog {
 
 
   registrazione() {
+    this.account.getTipiIndirizzi().subscribe(resp => {
+                this.loadedTipoIndirizzo = resp;
 
-    this.util.openDialog(RegistrazioneDialog,
-      {
-        account: null,
-        mode: "C"
-      },
-      {
-        width: '90vw',
-        maxWidth: '1200px',
-        height: 'auto',
-      }
-    );
+        this.util.openDialog(RegistrazioneDialog,
+          {
+            account: null,
+            mode: "C",
+            tipiIndirizzo : this.loadedTipoIndirizzo
+          },
+          {
+            width: '90vw',
+            maxWidth: '1200px',
+            height: 'auto',
+          }
+        );
+    });
 
   }
 

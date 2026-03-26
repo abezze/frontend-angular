@@ -24,7 +24,7 @@ export class RegistrazioneDialog implements OnInit {
     citta: new FormControl(null, Validators.required),
     cap: new FormControl(null, Validators.required),
     codiceFiscale : new FormControl(null, Validators.required),
-    partitaIva : new FormControl(null, Validators.required),
+    partitaIva : new FormControl(null),
     userName: new FormControl(null, Validators.required),
     password: new FormControl(null, Validators.required),
     passwordControl: new FormControl(null, Validators.required),
@@ -76,6 +76,66 @@ export class RegistrazioneDialog implements OnInit {
 
   changeTipoIndirizzo(tipo : any){
      console.log(tipo);
+    this.accoutServices.getUserAnags()
+        .subscribe({
+            next: ((r:any) => {
+              let indicetipo = 0;
+              let trovato = false;
+                for (let i = 0; i < r.anagrafiche.length; i++) {
+                    if (r.anagrafiche[i].tipoIndirizzo == tipo){
+                      indicetipo=i;
+                      trovato = true;
+                    }
+
+                }
+
+                let anagrafica = {
+                  email: r.email,
+                  userName: r.userName,
+                  password : r.password,
+                  role: r.role,
+                  nome: r.anagrafiche[indicetipo].nome,
+                  cognome: r.anagrafiche[indicetipo].cognome,
+                  telefono: r.anagrafiche[indicetipo].telefono,
+                  via: r.anagrafiche[indicetipo].via,
+                  citta: r.anagrafiche[indicetipo].citta,
+                  cap: r.anagrafiche[indicetipo].cap,
+                  codiceFiscale : r.anagrafiche[indicetipo].codiceFiscale,
+                  partitaIva: r.anagrafiche[indicetipo].partitaIva,
+                  nazione : r.anagrafiche[indicetipo].nazione,
+                  tipoIndirizzo : r.anagrafiche[indicetipo].tipoIndirizzo,
+                  id : r.anagrafiche[indicetipo].id
+
+                }
+                this.account.set(anagrafica);
+                this.updateForm.patchValue({
+                  nome: !trovato ? null : this.account().nome,
+                  cognome: !trovato ? null :this.account().cognome,
+                  email: !trovato ? null :this.account().email,
+                  telefono: !trovato ? null :this.account().telefono,
+                  via: !trovato ? null :this.account().via,
+                  citta: !trovato ? null :this.account().citta,
+                  cap: !trovato ? null :this.account().cap,
+                  userName: this.account().userName,
+                  codiceFiscale : !trovato ? null :this.account().codiceFiscale,
+                  partitaIva: !trovato ? null :this.account().partitaIva,
+                  nazione : !trovato ? null :this.account().nazione,
+                  tipoIndirizzo : tipo
+                })
+                if (trovato){
+                  this.mod = 'U';
+                } else {
+                  this.mod = 'C';
+                }
+              }),
+            error: ((r:any) => {
+              console.log(r);
+              this.mod = 'C';
+            })
+
+        })
+
+
   }
 
 
@@ -162,7 +222,7 @@ export class RegistrazioneDialog implements OnInit {
       nazione: this.updateForm.value.nazione,
       partitaIva : this.updateForm.value.partitaIva,
       codiceFiscale : this.updateForm.value.codiceFiscale,
-      role: 'USER',
+      role: (this.account()!=null && this.account().role !=null) ? this.account().role : 'USER',
       tipoIndirizzo : this.updateForm.value.tipoIndirizzo !=null ? this.updateForm.value.tipoIndirizzo : 'PRINCIPALE'
     }).subscribe({
       next: ((resp: any) => {

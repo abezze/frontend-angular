@@ -58,7 +58,8 @@ export class Dashboard {
                 nazione : r.anagrafiche[0].nazione,
                 password : r.password,
                 tipoIndirizzo : r.anagrafiche[0].tipoIndirizzo,
-                id : r.anagrafiche[0].id
+                id : r.anagrafiche[0].id,
+                role: r.role
               }
 
               this.ute.getTipiIndirizzi().subscribe(resp => {

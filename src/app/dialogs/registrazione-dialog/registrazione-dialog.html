@@ -16,9 +16,9 @@
 
                 <mat-form-field  >
                     <mat-select formControlName="tipoIndirizzo"  placeholder="Tipo
-                            Indirizzo" [(value)]="selectedTipoIndirizzo" >
+                            Indirizzo" [(value)]="selectedTipoIndirizzo"  (selectionChange)="changeTipoIndirizzo($event.value)" >
                         <mat-option *ngFor="let tipo of loadedTipoIndirizzo"
-                            [value]="tipo" (click)="changeTipoIndirizzo(tipo)">
+                            [value]="tipo" >
                           {{tipo}}
                         </mat-option>
                     </mat-select>
