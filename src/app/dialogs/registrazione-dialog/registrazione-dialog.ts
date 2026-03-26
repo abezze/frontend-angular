@@ -35,6 +35,7 @@ export class RegistrazioneDialog implements OnInit {
 
 
 
+
   msg = signal('');
   constructor(
     private accoutServices: UtenteService,
@@ -71,6 +72,8 @@ export class RegistrazioneDialog implements OnInit {
         nazione : this.account().nazione,
         tipoIndirizzo : this.account().tipoIndirizzo
       })
+      this.updateForm.controls['userName'].disable();
+
     }
   }
 
