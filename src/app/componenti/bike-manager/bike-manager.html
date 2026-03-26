@@ -1,1 +1,41 @@
-<p>bike-manager works!</p>
+
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Elenco Prodotti</mat-card-title>
+            <button mat-raised-button color="primary" >Creazione nuovo Prodotto</button>
+        </mat-card-header>
+        <mat-divider style="margin-top: 20px;"></mat-divider>
+        <mat-card-content>
+            <div class="search-row">
+
+
+
+            </div>
+                 <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Tipo</th>
+                            <th>Modello</th>
+                            <th>Marca</th>
+                            <th>Prezzo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for (bike of prodotti; track bike.productCode) {
+                        <tr>
+                            <td>
+                                <img [src]="bike.image" style="max-width: 80px;">
+                            </td>
+                            <td>{{bike.descrizione}}</td>
+                            <td>{{bike.colore}}</td>
+                            <td>{{bike.produttore.marchio}}</td>
+                            <td>{{bike.taglia}}</td>
+                            <td>{{bike.quantita}}</td>
+                        </tr>
+                    }
+                    </tbody>
+                 </table>
+        </mat-card-content>
+    </mat-card>
