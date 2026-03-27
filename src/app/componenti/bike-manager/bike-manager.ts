@@ -11,6 +11,7 @@ export class BikeManager implements OnInit {
 
 
   categoria: any;
+  produttore : any;
 
 
   constructor(
@@ -21,6 +22,7 @@ export class BikeManager implements OnInit {
 
     this.prodottoS.list();
     this.prodottoS.categorieList();
+    this.prodottoS.produttoriList();
   }
 
    get prodotti() {
@@ -30,7 +32,14 @@ export class BikeManager implements OnInit {
     return this.prodottoS.categorie();
   }
 
+  get produttori() {
+    return this.prodottoS.produttori();
+  }
+
   onCategoriaChange(tipoSelect : any){
+
+  }
+  onProduttoreChange(tipoSelect : any){
 
   }
   search() {

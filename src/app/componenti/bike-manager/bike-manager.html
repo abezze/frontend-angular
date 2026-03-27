@@ -10,21 +10,38 @@
             <div class="search-row">
               <mat-form-field>
                     <mat-label>Categoria</mat-label>
-                    <mat-select name="categoria"
-                            [(ngModel)]="categoria"
-                            (selectionChange)="onCategoriaChange($event.value)">
+                  <mat-select name="categoria"
+                          [(ngModel)]="categoria"
+                          (selectionChange)="onCategoriaChange($event.value)">
 
-                    @for (cat of categorie; track cat.id) {
-                        <mat-option [value]="cat">{{ cat.descrizione }}</mat-option>
-                    }
+                  @for (cat of categorie; track cat.id) {
+                      <mat-option [value]="cat">{{ cat.descrizione }}</mat-option>
+                  }
 
-                    </mat-select>
-                    @if (categoria){
-                    <button mat-icon-button matSuffix (click)="categoria = null; search()" matTooltip="Cancella">
-                        <mat-icon>close</mat-icon>
-                    </button>
-                    }
-                </mat-form-field>
+                  </mat-select>
+                  @if (categoria){
+                  <button mat-icon-button matSuffix (click)="categoria = null; search()" matTooltip="Cancella">
+                      <mat-icon>close</mat-icon>
+                  </button>
+                  }
+              </mat-form-field>
+              <mat-form-field>
+                    <mat-label>Produttori</mat-label>
+                  <mat-select name="produttore"
+                          [(ngModel)]="produttore"
+                          (selectionChange)="onProduttoreChange($event.value)">
+
+                  @for (prod of produttori; track prod.id) {
+                      <mat-option [value]="prod">{{ prod.nomeAzienda }}</mat-option>
+                  }
+
+                  </mat-select>
+                  @if (produttore){
+                  <button mat-icon-button matSuffix (click)="produttore = null; search()" matTooltip="Cancella">
+                      <mat-icon>close</mat-icon>
+                  </button>
+                  }
+              </mat-form-field>
 
 
 
