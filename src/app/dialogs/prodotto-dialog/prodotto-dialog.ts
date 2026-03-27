@@ -21,7 +21,7 @@ export class ProdottoDialog implements OnInit{
     productCode: new FormControl(null, Validators.required),
     colore: new FormControl(null, Validators.required),
     taglia: new FormControl(null, Validators.required),
-    peso: new FormControl('M', Validators.required),
+    peso: new FormControl(null, Validators.required),
     quantita: new FormControl(null, Validators.required),
     categoria: new FormControl(null, Validators.required),
     produttore: new FormControl(null, Validators.required)
@@ -105,6 +105,7 @@ export class ProdottoDialog implements OnInit{
       .subscribe({
         next: ((resp: any) => {
           console.log(resp);
+          this.prodottoServices.list();
           this.dialogRef.close();
         }),
         error: ((resp: any) => {

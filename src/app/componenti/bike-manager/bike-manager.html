@@ -55,6 +55,7 @@
                             <th>Marca</th>
                             <th>Taglia</th>
                             <th>Quantità</th>
+                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,11 +64,12 @@
                             <td>
                                 <img [src]="bike.image" style="max-width: 80px;">
                             </td>
-                            <td>{{bike.descrizione}}</td>
+                            <td>  {{bike.descrizione}}  </td>
                             <td>{{bike.colore}}</td>
                             <td>{{bike.produttore.marchio}}</td>
                             <td>{{bike.taglia}}</td>
                             <td>{{bike.quantita}}</td>
+                            <td> <button (click)="editProd(bike)"><span role="img" aria-label="edit">✏️</span> </button> </td>
                         </tr>
                     }
                     </tbody>

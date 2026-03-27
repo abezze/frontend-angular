@@ -70,7 +70,22 @@ export class BikeManager implements OnInit {
                           height: 'auto',
                         }
                       );
-    this.prodottoS.list();
+  }
+
+  editProd(bike : any){
+    console.log(bike);
+    this.util.openDialog(ProdottoDialog,
+                        {
+                          prodotto: bike,
+                          mode: "U"
+
+                        },
+                        {
+                          width: '90vw',
+                          maxWidth: '1200px',
+                          height: 'auto',
+                        }
+                      );
   }
 
 }
