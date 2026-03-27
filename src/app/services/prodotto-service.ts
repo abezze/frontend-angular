@@ -45,6 +45,16 @@ export class ProdottoService {
 
   }
 
+  create(body:{}){
+    console.log(body);
+    return this.http.post(this.url+ "create", body);
+  }
+
+  update(body:{}){
+    console.log(body);
+    return this.http.put(this.url + "update", body);
+  }
+
 
 
 

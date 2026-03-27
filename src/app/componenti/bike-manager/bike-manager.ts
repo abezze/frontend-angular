@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdottoService } from '../../services/prodotto-service';
+import { Utilities } from '../../services/utilities';
+import { ProdottoDialog } from '../../dialogs/prodotto-dialog/prodotto-dialog';
 
 @Component({
   selector: 'app-bike-manager',
@@ -15,7 +17,8 @@ export class BikeManager implements OnInit {
 
 
   constructor(
-    private prodottoS: ProdottoService
+    private prodottoS: ProdottoService,
+    private util: Utilities
   ) {
   }
   ngOnInit(): void {
@@ -52,6 +55,22 @@ export class BikeManager implements OnInit {
     console.log("filtri:" + cateId + "/" + produttoreId )
     this.prodottoS.list(cateId, produttoreId);
 
+  }
+
+  newProd(){
+    this.util.openDialog(ProdottoDialog,
+                        {
+                          prodotto: null,
+                          mode: "C"
+
+                        },
+                        {
+                          width: '90vw',
+                          maxWidth: '1200px',
+                          height: 'auto',
+                        }
+                      );
+    this.prodottoS.list();
   }
 
 }
