@@ -8,14 +8,9 @@ import { ProdottoService } from '../../services/prodotto-service';
   styleUrl: './bike-manager.css',
 })
 export class BikeManager implements OnInit {
-  tipo: any = null;
-  categ: any = null;
-  alim: any = null;
-  colore: any = null;
-  marca: any = null;
 
-  categories: any;
-  alimentazione: any;
+
+  categoria: any;
 
 
   constructor(
@@ -25,13 +20,22 @@ export class BikeManager implements OnInit {
   ngOnInit(): void {
 
     this.prodottoS.list();
+    this.prodottoS.categorieList();
   }
 
    get prodotti() {
     return this.prodottoS.prodotti();
   }
+  get categorie() {
+    return this.prodottoS.categorie();
+  }
+
+  onCategoriaChange(tipoSelect : any){
+
+  }
+  search() {
 
 
-
+  }
 
 }

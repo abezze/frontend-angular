@@ -8,6 +8,23 @@
         <mat-divider style="margin-top: 20px;"></mat-divider>
         <mat-card-content>
             <div class="search-row">
+              <mat-form-field>
+                    <mat-label>Categoria</mat-label>
+                    <mat-select name="categoria"
+                            [(ngModel)]="categoria"
+                            (selectionChange)="onCategoriaChange($event.value)">
+
+                    @for (cat of categorie; track cat.id) {
+                        <mat-option [value]="cat">{{ cat.descrizione }}</mat-option>
+                    }
+
+                    </mat-select>
+                    @if (categoria){
+                    <button mat-icon-button matSuffix (click)="categoria = null; search()" matTooltip="Cancella">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }
+                </mat-form-field>
 
 
 
