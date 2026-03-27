@@ -37,13 +37,20 @@ export class BikeManager implements OnInit {
   }
 
   onCategoriaChange(tipoSelect : any){
-
+     if (tipoSelect.id != null) {
+      this.search();
+     }
   }
   onProduttoreChange(tipoSelect : any){
-
+      if (tipoSelect.id != null) {
+      this.search();
+     }
   }
   search() {
-
+     let cateId = this.categoria == null ? null : this.categoria.id;
+     let produttoreId = this.produttore == null ? null : this.produttore.id;
+    console.log("filtri:" + cateId + "/" + produttoreId )
+    this.prodottoS.list(cateId, produttoreId);
 
   }
 

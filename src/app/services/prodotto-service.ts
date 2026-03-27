@@ -14,10 +14,13 @@ export class ProdottoService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
+  list( categoria?: number, produttore?: number) {
     let params = new HttpParams();
 
-    this.http.get(this.url + "list" )//, { params })
+    if (categoria) params = params.set('categoria', categoria);
+    if (produttore) params = params.set('produttore', produttore);
+
+    this.http.get(this.url + "list" , { params })
       .subscribe({
         next: ((r: any) => this.prodotti.set(r)),
       })
