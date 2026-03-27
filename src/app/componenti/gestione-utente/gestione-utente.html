@@ -1,1 +1,51 @@
-<p>gestione-utente works!</p>
+
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Elenco Utenti</mat-card-title>
+            <!-- button mat-raised-button color="primary" >Nuovo Utente</button -->
+        </mat-card-header>
+        <mat-divider style="margin-top: 20px;"></mat-divider>
+        <mat-card-content>
+            <div class="search-row">
+              <!-- mat-form-field>
+                    <mat-label>Categoria</mat-label>
+                    <mat-select name="categoria"
+                            [(ngModel)]="categoria"
+                            (selectionChange)="onCategoriaChange($event.value)">
+
+                    @for (cat of categorie; track cat.id) {
+                        <mat-option [value]="cat">{{ cat.descrizione }}</mat-option>
+                    }
+
+                    </mat-select>
+                    @if (categoria){
+                    <button mat-icon-button matSuffix (click)="categoria = null; search()" matTooltip="Cancella">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }
+                </mat-form-field -->
+
+
+
+            </div>
+                 <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Ruolo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for (utente of utenti; track utente.userName) {
+                        <tr>
+                            <td><a (click)="profilo(utente.userName)">{{utente.userName}}</a></td>
+                            <td><a (click)="profilo(utente.userName)">{{utente.email}}</a></td>
+                            <td><a (click)="profilo(utente.userName)">{{utente.role}}</a></td>
+                        </tr>
+                    }
+                    </tbody>
+                 </table>
+        </mat-card-content>
+    </mat-card>

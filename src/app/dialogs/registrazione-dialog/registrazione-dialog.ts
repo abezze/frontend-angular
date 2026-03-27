@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit, signal } from '@angular/core';
+import { Component, inject, Inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtenteService } from '../../services/utente-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AuthServices } from '../../auth/auth-services';
 
 @Component({
   selector: 'app-registrazione-dialog',
@@ -14,6 +15,7 @@ export class RegistrazioneDialog implements OnInit {
   mod: any;
   loadedTipoIndirizzo : any;
   selectedTipoIndirizzo: String ;
+  public auth = inject(AuthServices);
 
   updateForm: FormGroup = new FormGroup({
     nome: new FormControl(null, Validators.required),
@@ -51,8 +53,6 @@ export class RegistrazioneDialog implements OnInit {
 
   }
 
-
-
   ngOnInit(): void {
 
 
@@ -79,7 +79,7 @@ export class RegistrazioneDialog implements OnInit {
 
   changeTipoIndirizzo(tipo : any){
      console.log(tipo);
-    this.accoutServices.getUserAnags()
+    this.accoutServices.getUserAnags(this.account().userName)
         .subscribe({
             next: ((r:any) => {
               let indicetipo = 0;
@@ -237,6 +237,25 @@ export class RegistrazioneDialog implements OnInit {
         this.msg.set(resp.error.msg);
       })
     })
+  }
+
+  deleteUtente() {
+    this.msg.set('');
+    const updateBody: any = { id: this.account().userName };
+
+    console.log(updateBody);
+
+    this.accoutServices.delete(this.account().userName)
+      .subscribe({
+        next: ((resp: any) => {
+          console.log(resp);
+          this.accoutServices.list();
+          this.dialogRef.close();
+        }),
+        error: ((resp: any) => {
+          this.msg.set(resp.error.msg);
+        })
+      })
   }
 
 

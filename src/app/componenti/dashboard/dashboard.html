@@ -41,17 +41,18 @@
       <img src="cart.svg" class="menu-icon-img" />
     </button>
     </div>
-  }
-   <button matIconButton class="example-icon"
-    matTooltip="credenziali per l'applicazione"
-    (click)="login()">
-    <mat-icon>login</mat-icon>
-  </button>
   <button matIconButton class="example-icon" aria-label="uscire dell'applicazione"
     matTooltip="Uscire dell'applicazione"
     (click)="logout()">
     <mat-icon>logout</mat-icon>
   </button>
+  } @else {
+   <button matIconButton class="example-icon"
+    matTooltip="credenziali per l'applicazione"
+    (click)="login()">
+    <mat-icon>login</mat-icon>
+  </button>
+}
 </mat-toolbar>
 <mat-drawer-container class="example-container">
     <mat-drawer mode="side" [opened]=auth.isRoleAdmin() class="side-menu">

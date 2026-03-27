@@ -116,6 +116,11 @@
                          <button mat-raised-button color="primary" type="submit"
                         matTooltip="Salvare le modifiche">
                         Aggiorna il profilo</button>
+                        @if(account().userName != auth.grant().userId) {
+                            <button mat-raised-button color="warn" type="button"
+                            matTooltip="Salvare le modifiche" (click)="deleteUtente()">
+                            Elimina utente</button>
+                        }
                     }
 
                 </div>

@@ -41,7 +41,7 @@ export class Dashboard {
 
 
 
-    this.ute.getUserAnags()
+    this.ute.getUserAnags(this.auth.grant().userId)
         .subscribe({
             next: ((r:any) => {
               let anagrafica = {
