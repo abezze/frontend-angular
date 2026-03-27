@@ -30,6 +30,7 @@ import { LoginDialog } from './dialogs/login-dialog/login-dialog';
 import { RegistrazioneDialog } from './dialogs/registrazione-dialog/registrazione-dialog';
 import { BikeManager } from './componenti/bike-manager/bike-manager';
 import { ChangePassword } from './dialogs/change-password/change-password';
+import { ProdottoDialog } from './dialogs/prodotto-dialog/prodotto-dialog';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { ChangePassword } from './dialogs/change-password/change-password';
     RegistrazioneDialog,
     BikeManager,
     ChangePassword,
+    ProdottoDialog,
   ],
   imports: [
     BrowserModule,

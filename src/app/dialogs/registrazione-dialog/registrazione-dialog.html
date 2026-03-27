@@ -15,13 +15,22 @@
             <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
 
                 <mat-form-field  >
-                    <mat-select formControlName="tipoIndirizzo"  placeholder="Tipo
+                   <mat-select formControlName="tipoIndirizzo" placeholder="Tipo Indirizzo"
+
+                          (selectionChange)="changeTipoIndirizzo($event.value)">
+                      @for (tipo of loadedTipoIndirizzo; track tipo) {
+                          <mat-option [value]="tipo">{{ tipo }}</mat-option>
+                      }
+
+                    </mat-select>
+
+                  <!--  <mat-select formControlName="tipoIndirizzo"  placeholder="Tipo
                             Indirizzo" [(value)]="selectedTipoIndirizzo"  (selectionChange)="changeTipoIndirizzo($event.value)" >
                         <mat-option *ngFor="let tipo of loadedTipoIndirizzo"
                             [value]="tipo" >
                           {{tipo}}
                         </mat-option>
-                    </mat-select>
+                    </mat-select>-->
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
