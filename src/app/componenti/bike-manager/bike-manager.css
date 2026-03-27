@@ -1,34 +1,33 @@
+.example-card {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.example-card-footer {
+  padding: 16px;
+}
 .container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.search-row{
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-
+    gap: 15px;
+    margin: 15px 0;
+    flex-wrap: nowrap;
 }
-form {
+.header-row {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
-
-.button-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+.spacer {
+    flex: 1 1 auto;
 }
-.dialog-container {
-  position: relative;
-  padding-top: 40px;
-}
-
-.dialog-close-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  color: #555;
-  z-index: 10;
-}
-
-.dialog-close-btn:hover {
-  color: #000;
+.clickable-row{
+    cursor: pointer;
 }
