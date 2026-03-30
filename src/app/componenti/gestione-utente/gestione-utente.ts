@@ -11,11 +11,10 @@ import { Utilities } from '../../services/utilities';
   styleUrl: './gestione-utente.css',
 })
 export class GestioneUtente {
-
-
   categoria: any;
   persona : any;
   loadedTipoIndirizzo : any;
+  loadedTipoRuolo : any;
 
 
   constructor(
@@ -29,6 +28,9 @@ export class GestioneUtente {
   ngOnInit(): void {
 
     this.utenteS.list();
+    this.utenteS.getTipiRuoli().subscribe(resp => {
+      this.loadedTipoRuolo = resp;
+    });
 //    this.utenteS.categorieList();
   }
 
@@ -96,10 +98,24 @@ export class GestioneUtente {
               })
   
           })
-  
-  
-  
-  
       }
+
+  
+  changeTipoRuolo(userName: string, ruolo: string) {
+    const utente = {
+      "userName": userName,
+      "role": ruolo
+    }
+    console.log("utente: ", utente);
+    this.utenteS.updateRuolo(utente)
+      .subscribe({
+        next: ((resp: any) => {
+          
+        }),
+        error: ((resp: any) => {
+          console.log(resp.error.msg);
+        })
+      });
+  }
 }
 

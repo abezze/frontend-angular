@@ -55,7 +55,12 @@ export class RegistrazioneDialog implements OnInit {
 
   ngOnInit(): void {
 
-
+    if (this.mod == "C") {
+      this.updateForm.patchValue({
+        tipoIndirizzo : "PRINCIPALE"
+      })
+      this.updateForm.controls['tipoIndirizzo'].disable();
+    }
 
     if (this.mod == "U") {
       this.updateForm.patchValue({
@@ -128,7 +133,7 @@ export class RegistrazioneDialog implements OnInit {
                 if (trovato){
                   this.mod = 'U';
                 } else {
-                  this.mod = 'C';
+                  this.mod = 'CI';
                 }
               }),
             error: ((r:any) => {
@@ -144,6 +149,7 @@ export class RegistrazioneDialog implements OnInit {
 
  onSubmit() {
     if (this.mod == 'C') this.onSubmitCreate();
+    if (this.mod == 'CI') this.onSubmitCreateIndirizzo();
     if (this.mod == 'U') this.onSubmitUpdate();
   }
 
@@ -203,12 +209,20 @@ export class RegistrazioneDialog implements OnInit {
 
 
   onSubmitCreate() {
-    this.msg.set("");
-
     if (this.updateForm.value.password != this.updateForm.value.passwordControl) {
       this.msg.set("password non coincidenti");
       return;
     }
+
+    this.createAnagrafica(this.updateForm.value.userName);
+  }
+
+  onSubmitCreateIndirizzo() {
+    this.createAnagrafica(this.account().userName);
+  }
+
+  createAnagrafica(userName: string) {
+    this.msg.set("");
     console.log("nome" + this.updateForm.value.nome);
     console.log("cognome" + this.updateForm.value.cognome);
 
@@ -220,7 +234,7 @@ export class RegistrazioneDialog implements OnInit {
       via: this.updateForm.value.via,
       citta: this.updateForm.value.citta,
       cap: this.updateForm.value.cap,
-      userName: this.updateForm.value.userName,
+      userName: userName,
       password: this.updateForm.value.password,
       nazione: this.updateForm.value.nazione,
       partitaIva : this.updateForm.value.partitaIva,
@@ -246,6 +260,25 @@ export class RegistrazioneDialog implements OnInit {
     console.log(updateBody);
 
     this.accoutServices.delete(this.account().userName)
+      .subscribe({
+        next: ((resp: any) => {
+          console.log(resp);
+          this.accoutServices.list();
+          this.dialogRef.close();
+        }),
+        error: ((resp: any) => {
+          this.msg.set(resp.error.msg);
+        })
+      })
+  }
+
+  deleteIndirizzo() {
+    this.msg.set('');
+    const updateBody: any = { id: this.account().userName };
+
+    console.log(updateBody);
+
+    this.accoutServices.deleteAnagrafica(this.account().id)
       .subscribe({
         next: ((resp: any) => {
           console.log(resp);

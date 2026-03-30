@@ -29,6 +29,10 @@ export class UtenteService {
     return this.http.delete(this.url + "delete/" + userId);
   }
 
+  deleteAnagrafica(id: number){
+    return this.http.delete(this.urlAnag + "delete/" + id);
+  }
+
   getUserAnags(userId: string){
 
 
@@ -40,6 +44,16 @@ export class UtenteService {
   getTipiIndirizzi(){
     return this.http.get(this.urlAnag + "listTipoIndirizzo");
   }
+
+  getTipiRuoli(){
+    return this.http.get(this.url + "listRuoli");
+  }
+
+  updateRuolo(body: any){
+    console.log("body: ", body);
+    return this.http.put(this.url + "updateRole", body);
+  }
+
   changePwd(body:{}){
     return this.http.put(this.url + "changePwd", body);
   }

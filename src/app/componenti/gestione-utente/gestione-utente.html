@@ -42,7 +42,18 @@
                         <tr>
                             <td><a (click)="profilo(utente.userName)">{{utente.userName}}</a></td>
                             <td><a (click)="profilo(utente.userName)">{{utente.email}}</a></td>
-                            <td><a (click)="profilo(utente.userName)">{{utente.role}}</a></td>
+                            <!-- td><a (click)="profilo(utente.userName)">{{utente.role}}</a></td -->
+                            <td>
+                                <mat-select 
+                                    placeholder="Tipo Ruolo" 
+                                    [value]="utente.role"
+                                    [disabled]="utente.userName === 'Pluto'"
+                                    (selectionChange)="changeTipoRuolo(utente.userName, $event.value)">
+                                    @for (tipo of loadedTipoRuolo; track tipo) {
+                                        <mat-option [value]="tipo">{{ tipo }}</mat-option>
+                                    }
+                                </mat-select>
+                            </td>
                         </tr>
                     }
                     </tbody>

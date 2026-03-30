@@ -91,13 +91,13 @@
                     <mat-label>UserName</mat-label>
                     <input matInput type="text" name="userName" formControlName="userName" required>
                 </mat-form-field>
-
-                @if (mod == 'C'){
+                
                 <mat-form-field appearance="fill">
                     <mat-label>Password</mat-label>
                     <input matInput type="password" name="password" formControlName="password" required>
                 </mat-form-field>
 
+                @if (mod == 'C'){
                 <mat-form-field appearance="fill">
                     <mat-label>Retype Password</mat-label>
                     <input matInput type="password" name="passwordControl" formControlName="passwordControl" required>
@@ -116,6 +116,11 @@
                          <button mat-raised-button color="primary" type="submit"
                         matTooltip="Salvare le modifiche">
                         Aggiorna il profilo</button>
+                        @if (mod == 'U' && updateForm.get('tipoIndirizzo')?.value !== 'PRINCIPALE') {
+                            <button mat-raised-button color="warn" type="button"
+                            matTooltip="Salvare le modifiche" (click)="deleteIndirizzo()">
+                            Elimina indirizzo corrente</button>
+                        }
                         @if(account().userName != auth.grant().userId) {
                             <button mat-raised-button color="warn" type="button"
                             matTooltip="Salvare le modifiche" (click)="deleteUtente()">
