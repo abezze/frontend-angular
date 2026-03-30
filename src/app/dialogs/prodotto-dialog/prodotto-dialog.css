@@ -107,3 +107,11 @@ mat-dialog-content {
   overflow: visible !important;
 }
 
+.form-image {
+  display: block;
+  width: 400px;
+  height: auto;
+  margin: 0 auto 16px;
+
+}
+

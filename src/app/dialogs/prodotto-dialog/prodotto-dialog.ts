@@ -14,6 +14,7 @@ export class ProdottoDialog implements OnInit{
   prodotto = signal<any>(null);
   mod: any;
   selectedCategoria: String ;
+  image:any;
 
 
   updateForm: FormGroup = new FormGroup({
@@ -44,6 +45,7 @@ export class ProdottoDialog implements OnInit{
 
   ngOnInit(): void {
     if (this.mod == "U") {
+      this.image = this.prodotto().image;
       this.updateForm.patchValue({
         descrizione: this.prodotto().descrizione,
         productCode: this.prodotto().productCode,

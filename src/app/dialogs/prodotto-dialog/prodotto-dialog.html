@@ -12,6 +12,7 @@
             }
         </mat-card-header>
         <mat-card-content>
+           <img [src]="image" class="form-image">
             <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
 
                 <mat-form-field  >
