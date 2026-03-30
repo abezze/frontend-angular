@@ -31,6 +31,7 @@ import { RegistrazioneDialog } from './dialogs/registrazione-dialog/registrazion
 import { BikeManager } from './componenti/bike-manager/bike-manager';
 import { ChangePassword } from './dialogs/change-password/change-password';
 import { ProdottoDialog } from './dialogs/prodotto-dialog/prodotto-dialog';
+import { GestioneProduttore } from './componenti/gestione-produttore/gestione-produttore';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ProdottoDialog } from './dialogs/prodotto-dialog/prodotto-dialog';
     BikeManager,
     ChangePassword,
     ProdottoDialog,
+    GestioneProduttore,
   ],
   imports: [
     BrowserModule,

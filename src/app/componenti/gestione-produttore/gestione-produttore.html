@@ -1,0 +1,35 @@
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Produttori</mat-card-title>
+            <button mat-raised-button color="primary" (click)="newProd()" >Nuovo Produttore</button>
+        </mat-card-header>
+        <mat-divider style="margin-top: 20px;"></mat-divider>
+        <mat-card-content>
+          <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+
+                            <th>Marchio</th>
+                            <th>Nome Azienda</th>
+                            <th>Codice Fiscale</th>
+                            <th>Partita Iva</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for (produttore of produttori; track produttore.id) {
+                        <tr>
+                            <td>{{produttore.marchio}}</td>
+                            <td>{{produttore.nomeAzienda}}</td>
+                            <td>{{produttore.codiceFiscale}}</td>
+                            <td>{{produttore.partitaIva}}</td>
+                            <td> <button (click)="editProd(produttore)"><span role="img" aria-label="edit">✏️</span> </button>
+                                  <button (click)="confirmDelete(produttore.id)"><span role="img" aria-label="delete">🗑️</span></button>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                 </table>
+        </mat-card-content>
+    </mat-card>
