@@ -64,12 +64,14 @@
                             <td>
                                 <img [src]="bike.image" style="max-width: 80px;">
                             </td>
-                            <td>  {{bike.descrizione}}  </td>
+                            <td> <a  href="#" (click)="editProd(bike)"; $event.preventDefault()> {{bike.descrizione}}  </a> </td>
                             <td>{{bike.colore}}</td>
                             <td>{{bike.produttore.marchio}}</td>
                             <td>{{bike.taglia}}</td>
                             <td>{{bike.quantita}}</td>
-                            <td> <button (click)="editProd(bike)"><span role="img" aria-label="edit">✏️</span> </button> </td>
+                            <td> <button (click)="editProd(bike)"><span role="img" aria-label="edit">✏️</span> </button>
+                                  <button (click)="confirmDelete(bike.productCode)"><span role="img" aria-label="delete">🗑️</span></button>
+                            </td>
                         </tr>
                     }
                     </tbody>

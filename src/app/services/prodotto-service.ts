@@ -55,6 +55,23 @@ export class ProdottoService {
     return this.http.put(this.url + "update", body);
   }
 
+  delete(productCode:{}){
+    console.log(productCode);
+/*
+    return this.http.delete(`${this.url}delete/${productCode}`);
+
+    return this.http.delete(this.url + "delete/" + productCode)
+            .pipe(tap(()  => this.list()));
+*/
+            this.http.delete(this.url + "delete/" + productCode).subscribe({
+              next: () => {
+                console.log('Deleted successfully');
+                this.list();
+              },
+              error: err => console.error('Error deleting:', err)
+            });
+  }
+
 
 
 
