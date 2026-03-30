@@ -14,7 +14,7 @@ export class BikeManager implements OnInit {
 
   categoria: any;
   produttore : any;
-
+  selectedImage: string | null = null;
 
   constructor(
     private prodottoS: ProdottoService,
@@ -91,6 +91,14 @@ export class BikeManager implements OnInit {
     if (confirm('Sicuro di voler cancellare questo prodotto?')) {
       this.prodottoS.delete(productCode);
     }
+  }
+
+  openImage(url: string) {
+    this.selectedImage = url;
+  }
+
+  closeImage() {
+    this.selectedImage = null;
   }
 
 }

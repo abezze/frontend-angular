@@ -36,9 +36,8 @@ export class ProdottoService {
 
   }
   produttoriList() {
-    let params = new HttpParams();
 
-    this.http.get(this.urlProd + "list" )//, { params })
+    this.http.get(this.urlProd + "list" )
       .subscribe({
         next: ((r: any) => this.produttori.set(r)),
       })

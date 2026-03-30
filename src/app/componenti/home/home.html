@@ -1,1 +1,89 @@
-<p>home works!</p>
+
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Elenco Biciclette</mat-card-title>
+            <button mat-raised-button color="primary" (click)="vaiAlCarrello()" >Carrello</button>
+        </mat-card-header>
+        <mat-divider style="margin-top: 20px;"></mat-divider>
+        <mat-card-content>
+            <div class="image-popup-overlay" *ngIf="selectedImage" (click)="closeImage()">
+                <div class="popup-content">
+                    <span class="close-btn">&times;</span>
+                    <img [src]="selectedImage" class="enlarged-image">
+                </div>
+            </div>
+            <div class="search-row">
+              <mat-form-field>
+                    <mat-label>Categoria</mat-label>
+                  <mat-select name="categoria"
+                          [(ngModel)]="categoria"
+                          (selectionChange)="onCategoriaChange($event.value)">
+
+                  @for (cat of categorie; track cat.id) {
+                      <mat-option [value]="cat">{{ cat.descrizione }}</mat-option>
+                  }
+
+                  </mat-select>
+                  @if (categoria){
+                  <button mat-icon-button matSuffix (click)="categoria = null; search()" matTooltip="Cancella">
+                      <mat-icon>close</mat-icon>
+                  </button>
+                  }
+              </mat-form-field>
+              <mat-form-field>
+                    <mat-label>Produttori</mat-label>
+                  <mat-select name="produttore"
+                          [(ngModel)]="produttore"
+                          (selectionChange)="onProduttoreChange($event.value)">
+
+                  @for (prod of produttori; track prod.id) {
+                      <mat-option [value]="prod">{{ prod.nomeAzienda }}</mat-option>
+                  }
+
+                  </mat-select>
+                  @if (produttore){
+                  <button mat-icon-button matSuffix (click)="produttore = null; search()" matTooltip="Cancella">
+                      <mat-icon>close</mat-icon>
+                  </button>
+                  }
+              </mat-form-field>
+            </div>
+
+                 <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Descrizione</th>
+                            <th>Colore</th>
+                            <th>Marca</th>
+                            <th>Taglia</th>
+                            <th>Disponibilità</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for (bike of prodotti; track bike.productCode) {
+                        <tr>
+                            <td>
+                                <img [src]="bike.image"
+                                (click)="openImage(bike.image)"
+                                style="max-width: 80px; cursor: pointer;"
+                                alt="Bike preview"
+                                >
+                            </td>
+                            <td>{{bike.descrizione}}  </td>
+                            <td>{{bike.colore}}</td>
+                            <td>{{bike.produttore.marchio}}</td>
+                            <td>{{bike.taglia}}</td>
+                            <td>{{bike.quantita}}</td>
+                            <td> <button (click)="addToCart(bike)"><mat-icon>add_shopping_cart</mat-icon> </button>
+                                  <button (click)="deleteFromCart(bike)"><span role="img" aria-label="delete">🗑️</span></button>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                 </table>
+
+        </mat-card-content>
+    </mat-card>

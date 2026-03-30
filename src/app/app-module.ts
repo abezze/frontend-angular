@@ -32,6 +32,7 @@ import { BikeManager } from './componenti/bike-manager/bike-manager';
 import { ChangePassword } from './dialogs/change-password/change-password';
 import { ProdottoDialog } from './dialogs/prodotto-dialog/prodotto-dialog';
 import { GestioneProduttore } from './componenti/gestione-produttore/gestione-produttore';
+import { ProduttoreDialog } from './dialogs/produttore-dialog/produttore-dialog';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { GestioneProduttore } from './componenti/gestione-produttore/gestione-pr
     ChangePassword,
     ProdottoDialog,
     GestioneProduttore,
+    ProduttoreDialog,
   ],
   imports: [
     BrowserModule,

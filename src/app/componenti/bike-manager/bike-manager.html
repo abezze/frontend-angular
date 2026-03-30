@@ -7,6 +7,12 @@
         </mat-card-header>
         <mat-divider style="margin-top: 20px;"></mat-divider>
         <mat-card-content>
+          <div class="image-popup-overlay" *ngIf="selectedImage" (click)="closeImage()">
+                <div class="popup-content">
+                    <span class="close-btn">&times;</span>
+                    <img [src]="selectedImage" class="enlarged-image">
+                </div>
+            </div>
             <div class="search-row">
               <mat-form-field>
                     <mat-label>Categoria</mat-label>
@@ -55,6 +61,7 @@
                             <th>Marca</th>
                             <th>Taglia</th>
                             <th>Quantità</th>
+                            <th>Codice Prodotto</th>
                             <th>Azioni</th>
                         </tr>
                     </thead>
@@ -62,13 +69,18 @@
                     @for (bike of prodotti; track bike.productCode) {
                         <tr>
                             <td>
-                                <img [src]="bike.image" style="max-width: 80px;">
+                                <img [src]="bike.image"
+                                (click)="openImage(bike.image)"
+                                style="max-width: 80px; cursor: pointer;"
+                                alt="Bike preview"
+                                >
                             </td>
-                            <td> <a  href="#" (click)="editProd(bike)"; $event.preventDefault()> {{bike.descrizione}}  </a> </td>
+                            <td (click)="editProd(bike)"; $event.preventDefault() class = "clickable-row"> {{bike.descrizione}}  </td>
                             <td>{{bike.colore}}</td>
                             <td>{{bike.produttore.marchio}}</td>
                             <td>{{bike.taglia}}</td>
                             <td>{{bike.quantita}}</td>
+                            <td>{{bike.productCode}}</td>
                             <td> <button (click)="editProd(bike)"><span role="img" aria-label="edit">✏️</span> </button>
                                   <button (click)="confirmDelete(bike.productCode)"><span role="img" aria-label="delete">🗑️</span></button>
                             </td>
