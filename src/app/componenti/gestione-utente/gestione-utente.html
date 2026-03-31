@@ -47,7 +47,7 @@
                                 <mat-select 
                                     placeholder="Tipo Ruolo" 
                                     [value]="utente.role"
-                                    [disabled]="utente.userName === 'Pluto'"
+                                    [disabled]="utente.userName === auth.grant().userId"
                                     (selectionChange)="changeTipoRuolo(utente.userName, $event.value)">
                                     @for (tipo of loadedTipoRuolo; track tipo) {
                                         <mat-option [value]="tipo">{{ tipo }}</mat-option>

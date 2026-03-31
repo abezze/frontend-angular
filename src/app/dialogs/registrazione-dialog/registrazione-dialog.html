@@ -89,7 +89,7 @@
 
                 <mat-form-field appearance="fill">
                     <mat-label>UserName</mat-label>
-                    <input matInput type="text" name="userName" formControlName="userName" required>
+                    <input matInput type="text" name="userName" formControlName="userName">
                 </mat-form-field>
                 
                 <mat-form-field appearance="fill">
@@ -109,11 +109,11 @@
                 </div>
                 <div class="button-group">
                     @if (mod == 'C'){
-                    <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid"
+                    <button mat-raised-button color="primary" type="submit" [disabled]="updateForm.invalid"
                         matTooltip="Salvare le modifiche">
                         Crea nuovo utente</button>
                     } @else {
-                         <button mat-raised-button color="primary" type="submit"
+                         <button mat-raised-button color="primary" type="submit" [disabled]="updateForm.invalid"
                         matTooltip="Salvare le modifiche">
                         Aggiorna il profilo</button>
                         @if (mod == 'U' && updateForm.get('tipoIndirizzo')?.value !== 'PRINCIPALE') {

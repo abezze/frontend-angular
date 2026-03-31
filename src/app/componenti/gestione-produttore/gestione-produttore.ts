@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Utilities } from '../../services/utilities';
 import { ProduttoreService } from '../../services/produttore-service';
+import { ProduttoreDialog } from '../../dialogs/produttore-dialog/produttore-dialog';
 
 @Component({
   selector: 'app-gestione-produttore',
@@ -14,10 +15,9 @@ export class GestioneProduttore  implements OnInit{
       private produttoriS: ProduttoreService,
       private util: Utilities
     ) {
-    }
+  }
 
   ngOnInit(): void {
-
     this.produttoriS.produttoriList();
   }
 
@@ -26,40 +26,41 @@ export class GestioneProduttore  implements OnInit{
   }
 
   newProd(){
-      /*this.util.openDialog(ProdottoDialog,
-                          {
-                            prodotto: null,
-                            mode: "C"
+    this.util.openDialog(
+      ProduttoreDialog,
+      {
+        prodotto: null,
+        mode: "C"
 
-                          },
-                          {
-                            width: '90vw',
-                            maxWidth: '1200px',
-                            height: 'auto',
-                          }
-                        );*/
+      },
+      {
+        width: '90vw',
+        maxWidth: '1200px',
+        height: 'auto',
+      }
+    );
+  }
+
+  editProd(produttore : any){
+    console.log(produttore);
+    this.util.openDialog(
+      ProduttoreDialog,
+      {
+        produttore: produttore,
+        mode: "U"
+      },
+      {
+        width: '90vw',
+        maxWidth: '1200px',
+        height: 'auto',
+      }
+    );
+  }
+
+  confirmDelete(id : number) {
+    if (confirm('Sicuro di voler cancellare questo produttore?')) {
+      this.produttoriS.delete(id);
     }
-
-    editProd(bike : any){
-      console.log(bike);
-      /*this.util.openDialog(ProdottoDialog,
-                          {
-                            prodotto: bike,
-                            mode: "U"
-
-                          },
-                          {
-                            width: '90vw',
-                            maxWidth: '1200px',
-                            height: 'auto',
-                          }
-                        );*/
-    }
-    confirmDelete(productCode : number) {
-      /*if (confirm('Sicuro di voler cancellare questo prodotto?')) {
-        this.prodottoS.delete(productCode);
-      }*/
-    }
-
+  }
 
 }

@@ -1,1 +1,54 @@
-<p>produttore-dialog works!</p>
+<mat-dialog-content class="dialog-container">
+    <button mat-icon-button mat-dialog-close class="dialog-close-btn">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <mat-card>
+        <mat-card-header class="header-center">
+            @if (mod == 'C') {
+            <mat-card-title>Aggiungi Produttore</mat-card-title>
+            } @else {
+            <mat-card-title>Modifica produttore di {{produttore()?.marchio}} ({{produttore()?.nomeAzienda}})</mat-card-title>
+            }
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
+                <mat-form-field appearance="fill">
+                    <mat-label>Marchio</mat-label>
+                    <input matInput type="text" name="marchio" formControlName="marchio">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Nome Azienda</mat-label>
+                    <input matInput type="text" name="nomeAzienda" formControlName="nomeAzienda">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Codice Fiscale</mat-label>
+                    <input matInput type="text" name="codiceFiscale" formControlName="codiceFiscale">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Partita IVA</mat-label>
+                    <input matInput type="text" name="partitaIva" formControlName="partitaIva">
+                </mat-form-field>
+
+                <div class="msg-error">
+                    <span style="color:red">{{ msg() }}</span>
+                </div>
+                <div class="button-group">
+                    @if (mod == 'C'){
+                    <button mat-raised-button color="primary" type="submit" [disabled]="updateForm.invalid"
+                        matTooltip="Salvare le modifiche">
+                        Crea nuovo produttore</button>
+                    } @else {
+                         <button mat-raised-button color="primary" type="submit" [disabled]="updateForm.invalid"
+                        matTooltip="Salvare le modifiche">
+                        Aggiorna il produttore</button>
+                    }
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>
+i

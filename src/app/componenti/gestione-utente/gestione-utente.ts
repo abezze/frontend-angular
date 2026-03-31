@@ -20,7 +20,7 @@ export class GestioneUtente {
   constructor(
     private util: Utilities,
     private utenteS: UtenteService, 
-    private auth: AuthServices
+    public auth: AuthServices
   ) {
 
     }
@@ -110,7 +110,7 @@ export class GestioneUtente {
     this.utenteS.updateRuolo(utente)
       .subscribe({
         next: ((resp: any) => {
-          
+
         }),
         error: ((resp: any) => {
           console.log(resp.error.msg);

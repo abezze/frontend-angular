@@ -27,9 +27,9 @@ export class RegistrazioneDialog implements OnInit {
     cap: new FormControl(null, Validators.required),
     codiceFiscale : new FormControl(null, Validators.required),
     partitaIva : new FormControl(null),
-    userName: new FormControl(null, Validators.required),
+    userName: new FormControl(null),
     password: new FormControl(null, Validators.required),
-    passwordControl: new FormControl(null, Validators.required),
+    passwordControl: new FormControl(null),
     nazione: new FormControl(null, Validators.required),
     tipoIndirizzo: new FormControl(null)
   })
