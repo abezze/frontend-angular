@@ -3,6 +3,7 @@ import { ProdottoService } from '../../services/prodotto-service';
 import { Utilities } from '../../services/utilities';
 import { AuthServices } from '../../auth/auth-services';
 import { OrdineService } from '../../services/ordine-service';
+import { Dashboard } from '../dashboard/dashboard';
 
 @Component({
   selector: 'app-home',
@@ -16,12 +17,14 @@ export class Home implements OnInit {
   categoria: any;
   produttore : any;
   selectedImage: string | null = null;
+  creatoDett :number;
 
   constructor(
     private prodottoS: ProdottoService,
     private util: Utilities,
     public auth:AuthServices,
-    private ordineS : OrdineService
+    private ordineS : OrdineService,
+    private dash : Dashboard
   ) {
   }
   ngOnInit(): void {
@@ -64,9 +67,18 @@ export class Home implements OnInit {
   }
   addToCart(bike : any){
 
-      this.ordineId = this.ordineS.cercaOrdineInCorso(this.auth.grant().userId);
+      this.ordineId = this.ordineS.cercaOrdineInCorso(this.auth.grant().userId, bike);
+      console.log("this.ordineId", this.ordineId);
+      console.log("this.dash.carrelloBadge ", this.dash.carrelloBadge)
+      this.dash.carrelloBadge++;
+      console.log("this.dash.carrelloBadge ", this.dash.carrelloBadge)
+
       //this.ordineS.ordine
-      this.ordineS.aggiungiDettaglio(bike, this.ordineId);
+      /*this.creatoDett = this.ordineS.aggiungiDettaglio(bike, this.ordineId);
+      console.log("this.creatoDett = " , this.creatoDett );
+      if (this.creatoDett==1){
+        this.dash.carrelloBadge++;
+      }*/
   }
 
   vaiAlCarrello(){

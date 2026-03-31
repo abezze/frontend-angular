@@ -7,6 +7,7 @@ import { LoginDialog } from '../../dialogs/login-dialog/login-dialog';
 import { RegistrazioneDialog } from '../../dialogs/registrazione-dialog/registrazione-dialog';
 import { Utilities } from '../../services/utilities';
 import { ChangePassword } from '../../dialogs/change-password/change-password';
+import { CartService } from '../../services/cart-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,9 +16,13 @@ import { ChangePassword } from '../../dialogs/change-password/change-password';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+  carrelloBadge : number ;
   readonly dialog = inject(MatDialog);
   persona : any;
   loadedTipoIndirizzo : any;
+
+  cartService = inject(CartService);
+  count = this.cartService.cartCount;
 
   constructor(public auth:AuthServices, private routing:Router, private util: Utilities, private ute: UtenteService){
 

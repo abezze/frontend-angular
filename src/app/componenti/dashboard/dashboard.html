@@ -37,7 +37,13 @@
 
 
 
-    <button mat-icon-button aria-label="Carrello" matBadge="5" >
+    <button mat-icon-button aria-label="Carrello" >
+        <mat-icon
+          [matBadge]="count()"
+          [matBadgeHidden]="count() === 0"
+          matBadgeColor="warn">
+          shopping_cart
+        </mat-icon>
       <img src="cart.svg" class="menu-icon-img" />
     </button>
     </div>
