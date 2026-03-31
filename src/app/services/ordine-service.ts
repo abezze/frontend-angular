@@ -12,7 +12,7 @@ export class OrdineService {
 
   constructor(private http: HttpClient) { }
 
-  cercaOrdineInCorso(userId: string){
+   cercaOrdineInCorso(userId: string) : number {
     let params = new HttpParams().set('userName', userId);
 
     this.http.get(this.urlOrd + "findLastByUtenteAndStatoOrdine" , { params })
@@ -29,15 +29,15 @@ export class OrdineService {
                 userName: userId
               };
           console.log(ordinezero);
-          console.log("ordine non trovato cado a crearlo");
+          console.log("ordine non trovato vado a crearlo");
           this.http.post(this.urlOrd+ "create", ordinezero)
             .subscribe({
                 next: ((r: any) => {
                   this.ordine.set(r);
                   this.idOrdine= r.id;
                   console.log("ordine creato");
-                  console.log("r");
-                  console.log(r.ordine.id);
+                  console.log(r);
+                  console.log(r.id);
               }),
                error: err => {
                 console.error('Error order impossible to create for user :', err);
@@ -45,16 +45,17 @@ export class OrdineService {
         }
 
     });
+    return this.idOrdine;
 }
 
-    aggiungiDettaglio(bike:any){
+    aggiungiDettaglio(bike:any, ordId:number){
       console.log(" aggiungi dettaglio bike ", bike);
           let dettaglio = {
                   quantita: 1,
-                  ordineId: this.idOrdine,
+                  ordineId: ordId,
                   prodottoId: bike.productCode
               };
-              console.log(dettaglio);
+              console.log("dettaglio ordine : ", dettaglio);
               this.http.post(this.urlDett+ "create", dettaglio)
                 .subscribe({
                 next: ((r: any) => {

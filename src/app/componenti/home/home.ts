@@ -12,7 +12,7 @@ import { OrdineService } from '../../services/ordine-service';
 })
 export class Home implements OnInit {
 
-
+  ordineId:number;
   categoria: any;
   produttore : any;
   selectedImage: string | null = null;
@@ -63,9 +63,10 @@ export class Home implements OnInit {
 
   }
   addToCart(bike : any){
-      this.ordineS.cercaOrdineInCorso(this.auth.grant().userId);
+
+      this.ordineId = this.ordineS.cercaOrdineInCorso(this.auth.grant().userId);
       //this.ordineS.ordine
-      this.ordineS.aggiungiDettaglio(bike);
+      this.ordineS.aggiungiDettaglio(bike, this.ordineId);
   }
 
   vaiAlCarrello(){
