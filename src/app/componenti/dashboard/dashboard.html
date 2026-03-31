@@ -21,6 +21,8 @@
       <span class="welcome">Ciao {{ auth.grant().userId }}</span>
     </div>
   }
+  <span class="example-spacer"></span>
+  <p style="color:red">{{msgCart()}}</p>
     <span class="example-spacer"></span>
 
     <button mat-icon-button
@@ -44,7 +46,7 @@
           matBadgeColor="warn">
           shopping_cart
         </mat-icon>
-      <img src="cart.svg" class="menu-icon-img" />
+     <!-- <img src="cart.svg" class="menu-icon-img" /> -->
     </button>
     </div>
   <button matIconButton class="example-icon" aria-label="uscire dell'applicazione"

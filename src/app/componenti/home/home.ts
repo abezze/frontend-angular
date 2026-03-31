@@ -69,9 +69,6 @@ export class Home implements OnInit {
 
       this.ordineId = this.ordineS.cercaOrdineInCorso(this.auth.grant().userId, bike);
       console.log("this.ordineId", this.ordineId);
-      console.log("this.dash.carrelloBadge ", this.dash.carrelloBadge)
-      this.dash.carrelloBadge++;
-      console.log("this.dash.carrelloBadge ", this.dash.carrelloBadge)
 
       //this.ordineS.ordine
       /*this.creatoDett = this.ordineS.aggiungiDettaglio(bike, this.ordineId);

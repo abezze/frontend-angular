@@ -1,3 +1,4 @@
+import { Dashboard } from './../componenti/dashboard/dashboard';
 import { Injectable , signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CartService } from './cart-service';
@@ -72,11 +73,12 @@ export class OrdineService {
                 next: ((r: any) => {
 
                   console.log("dettaglio ordine creato");
-                  this.creatoDett = 1;
+                  this.cartService.setMsg("");
                   this.cartService.addToCart();
 
               }),
                error: err => {
+                this.cartService.setMsg('Dettaglio ordine non aggiunto ');
                 console.error('Dettaglio non creato :', err);
                 this.creatoDett = 0;
                }});

@@ -1,5 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
@@ -7,9 +7,11 @@ import { BehaviorSubject } from 'rxjs';
 export class CartService {
   // Use a private signal to hold the count
   private cartCountSignal = signal<number>(0);
+  private msgCart =   signal('');
 
   // Expose it as a read-only signal
   cartCount = this.cartCountSignal.asReadonly();
+  msgCartRO = this.msgCart.asReadonly();
 
   addToCart() {
     this.cartCountSignal.update(count => count + 1);
@@ -21,6 +23,10 @@ export class CartService {
 
   clearCart() {
     this.cartCountSignal.set(0);
+  }
+
+  setMsg(par: string){
+    this.msgCart.set(par);
   }
 
 }
