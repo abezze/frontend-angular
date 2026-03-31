@@ -8,6 +8,7 @@ import { authAdminGuard } from './auth/auth-admin-guard';
 import { Cart } from './componenti/cart/cart';
 import { BikeManager } from './componenti/bike-manager/bike-manager';
 import { GestioneProduttore } from './componenti/gestione-produttore/gestione-produttore';
+import { GestioneOrdini } from './componenti/gestione-ordini/gestione-ordini';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dash', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
     {path: 'cart', component:Cart, canActivate:[authGuard]},
     { path: 'bike', component: BikeManager, canActivate: [authGuard, authAdminGuard] },
     {path: 'user', component:GestioneUtente, canActivate:[authGuard, authAdminGuard]},
-    { path: 'produttori', component:GestioneProduttore, canActivate: [authGuard, authAdminGuard]}
+    { path: 'produttori', component:GestioneProduttore, canActivate: [authGuard, authAdminGuard]},
+    { path: 'ordini', component:GestioneOrdini, canActivate: [authGuard, authAdminGuard]}
     ]
   },
 ];

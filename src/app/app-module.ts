@@ -33,6 +33,7 @@ import { ChangePassword } from './dialogs/change-password/change-password';
 import { ProdottoDialog } from './dialogs/prodotto-dialog/prodotto-dialog';
 import { GestioneProduttore } from './componenti/gestione-produttore/gestione-produttore';
 import { ProduttoreDialog } from './dialogs/produttore-dialog/produttore-dialog';
+import { GestioneOrdini } from './componenti/gestione-ordini/gestione-ordini';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { ProduttoreDialog } from './dialogs/produttore-dialog/produttore-dialog'
     ProdottoDialog,
     GestioneProduttore,
     ProduttoreDialog,
+    GestioneOrdini,
   ],
   imports: [
     BrowserModule,
