@@ -1,4 +1,4 @@
-import { Dashboard } from './../componenti/dashboard/dashboard';
+
 import { Injectable , signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CartService } from './cart-service';
@@ -73,6 +73,7 @@ export class OrdineService {
                 next: ((r: any) => {
 
                   console.log("dettaglio ordine creato");
+
                   this.cartService.setMsg("");
                   this.cartService.addToCart();
 

@@ -1,1 +1,38 @@
-<p>cart works!</p>
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Carrello</mat-card-title>
+
+        </mat-card-header>
+        <mat-divider style="margin-top: 20px;"></mat-divider>
+        <mat-card-content>
+          <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+
+                            <th>Descrizione</th>
+                            <th>Colore</th>
+                            <th>Taglia</th>
+                            <th>Quantità</th>
+                            <th>Disponibilità</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for (dettaglio of dettagli; track dettaglio.id) {
+                        <tr>
+                            <td>{{dettaglio.prodotto.descrizione}}</td>
+                            <td>{{dettaglio.prodotto.colore}}</td>
+                            <td>{{dettaglio.prodotto.taglia}}</td>
+                            <td>{{dettaglio.quantita}}</td>
+                            <td>{{dettaglio.prodotto.quantita}}</td>
+                            <td><!-- <button (click)="editProd(dettaglio)"><span role="img" aria-label="edit">✏️</span> </button>
+                                  <button (click)="confirmDelete(dettaglio.id)"><span role="img" aria-label="delete">🗑️</span></button> -->
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                 </table>
+        </mat-card-content>
+    </mat-card>
+

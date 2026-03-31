@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, signal } from '@angular/core';
 import { ProduttoreService } from '../../services/produttore-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CartService } from '../../services/cart-service';
 
 @Component({
   selector: 'app-produttore-dialog',
@@ -25,7 +26,8 @@ export class ProduttoreDialog implements OnInit {
   constructor(
     private produttoreServices: ProduttoreService,
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<ProduttoreDialog>
+    private dialogRef: MatDialogRef<ProduttoreDialog>,
+    private cartService : CartService
   ) {
     if (data) {
       this.produttore.set(data.produttore);
@@ -42,7 +44,7 @@ export class ProduttoreDialog implements OnInit {
         marchio: this.produttore().marchio,
         nomeAzienda: this.produttore().nomeAzienda
       })
-
+    this.cartService.setMsg("");
       //this.updateForm.markAllAsTouched();
       //this.updateForm.markAsDirty();
       //this.updateForm.updateValueAndValidity();
@@ -56,7 +58,7 @@ export class ProduttoreDialog implements OnInit {
 
   onSubmitCreate() {
     this.msg.set("");
-    
+
     this.produttoreServices.create({
       codiceFiscale: this.updateForm.value.codiceFiscale,
       partitaIva: this.updateForm.value.partitaIva,
@@ -77,7 +79,7 @@ export class ProduttoreDialog implements OnInit {
 
   onSubmitUpdate() {
     this.msg.set("");
-    
+
     this.produttoreServices.update({
       id: this.produttore().id,
       codiceFiscale: this.updateForm.value.codiceFiscale,
