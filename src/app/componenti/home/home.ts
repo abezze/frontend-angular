@@ -4,6 +4,7 @@ import { Utilities } from '../../services/utilities';
 import { AuthServices } from '../../auth/auth-services';
 import { OrdineService } from '../../services/ordine-service';
 import { Dashboard } from '../dashboard/dashboard';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,8 @@ export class Home implements OnInit {
     private util: Utilities,
     public auth:AuthServices,
     private ordineS : OrdineService,
-    private dash : Dashboard
+    private dash : Dashboard,
+    private router : Router
   ) {
   }
   ngOnInit(): void {
@@ -79,7 +81,7 @@ export class Home implements OnInit {
   }
 
   vaiAlCarrello(){
-
+      this.router.navigate([ '/dash','cart']);
 
     }
 

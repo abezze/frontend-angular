@@ -37,4 +37,27 @@ constructor(
     return this.dettaglio.dettagli();
   }
 
+  aggiungi(dettaglio: any) {
+    if (dettaglio.prodotto.quantita >dettaglio.quantita +1)
+    dettaglio.quantita++;
+  }
+
+
+  togli(dettaglio: any) {
+    if (dettaglio.quantita > 1) {
+      dettaglio.quantita--;
+    } else {
+      this.rimuoviDalCarrello(dettaglio);
+    }
+  }
+
+  rimuoviDalCarrello(dettaglio: any) {
+    //this.dettaglio = this.dettaglio.filter(p => p.id !== dettaglio.id);
+  }
+
+
+  /*get totale() {
+    return this.dettaglio.reduce((acc, p) => acc + (p.prezzo * p.quantita), 0);
+  }*/
+
 }

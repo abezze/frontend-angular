@@ -9,23 +9,34 @@
           <table class="table table-stripped ">
                     <thead>
                         <tr>
-
+                            <th></th>
                             <th>Descrizione</th>
                             <th>Colore</th>
                             <th>Taglia</th>
-                            <th>Quantità</th>
                             <th>Disponibilità</th>
+                            <th>Quantità</th>
+
 
                         </tr>
                     </thead>
                     <tbody>
                     @for (dettaglio of dettagli; track dettaglio.id) {
                         <tr>
+                            <td>
+                                <img [src]="dettaglio.prodotto.image"
+
+                                style="max-width: 80px; cursor: pointer;"
+                                alt="Bike preview"
+                                >
+                            </td>
                             <td>{{dettaglio.prodotto.descrizione}}</td>
                             <td>{{dettaglio.prodotto.colore}}</td>
                             <td>{{dettaglio.prodotto.taglia}}</td>
-                            <td>{{dettaglio.quantita}}</td>
                             <td>{{dettaglio.prodotto.quantita}}</td>
+                            <td><button (click)="togli(dettaglio)">-</button>
+                                {{dettaglio.quantita}}
+                                <button (click)="aggiungi(dettaglio)">+</button>
+                            </td>
                             <td><!-- <button (click)="editProd(dettaglio)"><span role="img" aria-label="edit">✏️</span> </button>
                                   <button (click)="confirmDelete(dettaglio.id)"><span role="img" aria-label="delete">🗑️</span></button> -->
                             </td>
