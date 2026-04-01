@@ -12,6 +12,8 @@ import { AuthServices } from '../../auth/auth-services';
   styleUrl: './cart.css',
 })
 export class Cart implements OnInit{
+  ordineDati: any;
+  mode: any;
 
 
 
@@ -30,7 +32,20 @@ constructor(
 
 
   ngOnInit(): void {
-    this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId);
+    
+    const state = history.state;
+
+    if (state && state.ordine) {
+      this.ordineDati = state.ordine;
+      this.mode = state.mode;
+      if (this.mode == "U") {
+        this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId); // TODO
+      } else {
+        this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId);
+      }
+    } else {
+      this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId);
+    }
   }
 
   get dettagli() {
@@ -51,7 +66,7 @@ constructor(
     }
   }
 
-  rimuoviDalCarrello(dettaglio: any) {
+    rimuoviDalCarrello(dettaglio: any) {
     //this.dettagli = this.dettagli.filter(p => p.id !== dettaglio.id);
   }
 

@@ -75,17 +75,17 @@ export class BikeManager implements OnInit {
   editProd(bike : any){
     console.log(bike);
     this.util.openDialog(ProdottoDialog,
-                        {
-                          prodotto: bike,
-                          mode: "U"
+      {
+        prodotto: bike,
+        mode: "U"
 
-                        },
-                        {
-                          width: '90vw',
-                          maxWidth: '1200px',
-                          height: 'auto',
-                        }
-                      );
+      },
+      {
+        width: '90vw',
+        maxWidth: '1200px',
+        height: 'auto',
+      }
+    );
   }
   confirmDelete(productCode : number) {
     if (confirm('Sicuro di voler cancellare questo prodotto?')) {

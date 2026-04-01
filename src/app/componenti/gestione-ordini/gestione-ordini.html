@@ -1,1 +1,34 @@
-<p>gestione-ordini works!</p>
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header class="header-row">
+            <mat-card-title>Ordini</mat-card-title>
+        </mat-card-header>
+        <mat-divider style="margin-top: 20px;"></mat-divider>
+        <mat-card-content>
+          <table class="table table-stripped ">
+                    <thead>
+                        <tr>
+                            <th>Numero</th>
+                            <th>Data</th>
+                            <th>Stato</th>
+                            <th>Nome Utente</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for (ordine of ordini; track ordine.id) {
+                        <tr>
+                            <td>{{ordine.id}}</td>
+                            <td>{{ordine.dataOrdine}} {{ordine.orarioOrdine}}</td>
+                            <td>{{ordine.statoOrdine}}</td>
+                            <td>{{ordine.utente.userName}}</td>
+                            <td>
+                                <button (click)="editOrd(ordine)"><span role="img" aria-label="edit">✏️</span> </button>
+                                <button (click)="confirmDelete(ordine.id)"><span role="img" aria-label="delete">🗑️</span></button>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                 </table>
+        </mat-card-content>
+    </mat-card>
