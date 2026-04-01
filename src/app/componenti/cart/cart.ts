@@ -52,12 +52,16 @@ constructor(
   }
 
   rimuoviDalCarrello(dettaglio: any) {
-    //this.dettaglio = this.dettaglio.filter(p => p.id !== dettaglio.id);
+    //this.dettagli = this.dettagli.filter(p => p.id !== dettaglio.id);
   }
 
 
-  /*get totale() {
-    return this.dettaglio.reduce((acc, p) => acc + (p.prezzo * p.quantita), 0);
-  }*/
+  get totale() {
+    return this.dettagli.reduce((acc, p) => acc + (p.prodotto.prezzo * p.quantita), 0);
+  }
+
+  confermaOrdine (){
+
+  }
 
 }

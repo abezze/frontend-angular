@@ -44,8 +44,16 @@
                             </td>
                         </tr>
                     }
+
+
                     </tbody>
                  </table>
+
         </mat-card-content>
+        <mat-card-footer  class="header-row">
+                    <hr>
+                    <h3>Totale Ordine: {{ totale | currency:'EUR' }}</h3>
+                    <button mat-raised-button color="primary"  (click)="confermaOrdine()" >Conferma Ordine</button>
+        </mat-card-footer>
     </mat-card>
 
