@@ -58,6 +58,7 @@
                             <th>Colore</th>
                             <th>Marca</th>
                             <th>Taglia</th>
+                            <th>Prezzo</th>
                             <th>Disponibilità</th>
                             <th>Azioni</th>
                         </tr>
@@ -76,6 +77,7 @@
                             <td>{{bike.colore}}</td>
                             <td>{{bike.produttore.marchio}}</td>
                             <td>{{bike.taglia}}</td>
+                            <td>{{bike.prezzo}}</td>
                             <td>{{bike.quantita}}</td>
                             <td> <button (click)="addToCart(bike)"><mat-icon>add_shopping_cart</mat-icon> </button>
                                   <!--<button (click)="deleteFromCart(bike)"><span role="img" aria-label="delete">🗑️</span></button>-->

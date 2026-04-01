@@ -25,7 +25,8 @@ export class ProdottoDialog implements OnInit{
     peso: new FormControl(null, Validators.required),
     quantita: new FormControl(null, Validators.required),
     categoria: new FormControl(null, Validators.required),
-    produttore: new FormControl(null, Validators.required)
+    produttore: new FormControl(null, Validators.required),
+    prezzo: new FormControl(null, Validators.required),
 
   })
 
@@ -54,7 +55,8 @@ export class ProdottoDialog implements OnInit{
         peso: this.prodotto().peso ,
         quantita: this.prodotto().quantita,
         categoria: this.prodotto().categoria,
-        produttore: this.prodotto().produttore
+        produttore: this.prodotto().produttore,
+        prezzo: this.prodotto().prezzo ,
 
       })
       this.updateForm.controls['productCode'].disable();
@@ -99,7 +101,8 @@ export class ProdottoDialog implements OnInit{
     if (this.updateForm.controls['produttore'].dirty)
       updateBody.produttoreId = this.updateForm.value.produttore.id;
 
-
+    if (this.updateForm.controls['prezzo'].dirty)
+      updateBody.prezzo = this.updateForm.value.prezzo;
 
     console.log(updateBody);
 
@@ -129,6 +132,7 @@ export class ProdottoDialog implements OnInit{
       taglia: this.updateForm.value.taglia,
       peso: this.updateForm.value.peso ,
       quantita: this.updateForm.value.quantita,
+      prezzo: this.updateForm.value.prezzo ,
       idCategoria: this.updateForm.value.categoria.id,
       idProduttore: this.updateForm.value.produttore.id
 

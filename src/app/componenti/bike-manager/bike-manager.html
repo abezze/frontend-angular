@@ -62,6 +62,7 @@
                             <th>Taglia</th>
                             <th>Quantità</th>
                             <th>Codice Prodotto</th>
+                            <th>Prezzo</th>
                             <th>Azioni</th>
                         </tr>
                     </thead>
@@ -81,6 +82,7 @@
                             <td>{{bike.taglia}}</td>
                             <td>{{bike.quantita}}</td>
                             <td>{{bike.productCode}}</td>
+                            <td>{{bike.prezzo}}</td>
                             <td> <button (click)="editProd(bike)"><span role="img" aria-label="edit">✏️</span> </button>
                                   <button (click)="confirmDelete(bike.productCode)"><span role="img" aria-label="delete">🗑️</span></button>
                             </td>
