@@ -79,4 +79,10 @@ export class OrdineService {
     });
   }
 
+  getOrdineById(id: number){
+    let params = new HttpParams().set('id', id);
+    return this.http.get(this.urlOrd + "findById", {params});
+
+  }
+
 }

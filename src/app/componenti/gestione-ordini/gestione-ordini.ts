@@ -27,11 +27,10 @@ export class GestioneOrdini implements OnInit {
   }
   
   editOrd(ordine : any){
-      console.log(ordine);
-      this.router.navigate(['/dash/cart'], { 
+      this.router.navigate(['/dash/ordine'], { 
         state: { 
           ordine: ordine, 
-          mode: "U" 
+          mode: "ORDINE" 
         } 
       });
     }

@@ -11,15 +11,16 @@ import { GestioneProduttore } from './componenti/gestione-produttore/gestione-pr
 import { GestioneOrdini } from './componenti/gestione-ordini/gestione-ordini';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dash', pathMatch: 'full' },
+  {path: '', redirectTo: 'dash', pathMatch: 'full'},
   {path:'dash', component:Dashboard, children:[
     {path:'', redirectTo:'home', pathMatch:'full'},
     {path:'home', component:Home},
     {path: 'cart', component:Cart, canActivate:[authGuard]},
-    { path: 'bike', component: BikeManager, canActivate: [authGuard, authAdminGuard] },
+    {path: 'bike', component: BikeManager, canActivate: [authGuard, authAdminGuard] },
     {path: 'user', component:GestioneUtente, canActivate:[authGuard, authAdminGuard]},
-    { path: 'produttori', component:GestioneProduttore, canActivate: [authGuard, authAdminGuard]},
-    { path: 'ordini', component:GestioneOrdini, canActivate: [authGuard, authAdminGuard]}
+    {path: 'produttori', component:GestioneProduttore, canActivate: [authGuard, authAdminGuard]},
+    {path: 'ordini', component:GestioneOrdini, canActivate: [authGuard, authAdminGuard]},
+    {path: 'ordine', component:Cart, canActivate:[authGuard]},
     ]
   },
 ];
