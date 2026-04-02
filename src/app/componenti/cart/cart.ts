@@ -42,7 +42,7 @@ constructor(
       if (this.mode == "ORDINE") {
         this.dettaglio.dettagli.set(this.ordine.dettagli);
       } else {
-        this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId);
+        this.dettaglio.cercaOrdineInCorso(this.ordine.utente.userName);
       }
     } else {
       this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId);

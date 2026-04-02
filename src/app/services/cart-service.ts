@@ -28,5 +28,8 @@ export class CartService {
   setMsg(par: string){
     this.msgCart.set(par);
   }
+  setCartNumber(num: number){
+    this.cartCountSignal.set(num);
+  }
 
 }
