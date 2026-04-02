@@ -17,21 +17,22 @@ export class DettaglioService {
   cercaOrdineInCorso(userId: string)  {
     let params = new HttpParams().set('userName', userId);
 
-    this.http.get(this.urlOrd + "findLastByUtenteAndStatoOrdine" , { params })
-      .subscribe({
-        next: ((r: any) => {
-          console.log("ordine trovato  r.id :", r.id);
+    if (userId!=null){
+      this.http.get(this.urlOrd + "findLastByUtenteAndStatoOrdine" , { params })
+        .subscribe({
+          next: ((r: any) => {
+            console.log("ordine trovato  r.id :", r.id);
 
-          this.listDettaglio( r.id);
+            this.listDettaglio( r.id);
 
-      }), error: err => {
-                console.error('Error order impossible to create for user :', err);
-                this.cartService.setMsg("Carrello vuoto o non trovato ");
-               }
+        }), error: err => {
+                  console.error('Error order impossible to create for user :', err);
+                  this.cartService.setMsg("Carrello vuoto o non trovato ");
+                }
 
 
-    });
-
+      });
+    }
   }
 
   listDettaglio (idOrdine : number){
@@ -41,9 +42,14 @@ export class DettaglioService {
     this.http.get(this.urlDett + "findAllByOrdine" , { params })
       .subscribe({
         next: ((r: any) => {
-          console.log("dettaglio ordine trovato  r.id :", r.id);
+          console.log("dettaglio ordine trovato  r.id :", r);
           this.dettagli.set(r);
-
+          let quantitaCarrello = 0;
+                for (let i = 0; i < r.length; i++) {
+                    quantitaCarrello= quantitaCarrello+ r[i].quantita;
+                    }
+                    console.log("quantitaCarrello ", quantitaCarrello);
+                    this.cartService.setCartNumber(quantitaCarrello);
       }), error: err => {
                 console.error('Carrello vuoto o non trovato :', err);
                 this.cartService.setMsg("Carrello vuoto o non trovato ");

@@ -5,6 +5,7 @@ import { AuthServices } from '../../auth/auth-services';
 import { OrdineService } from '../../services/ordine-service';
 import { Dashboard } from '../dashboard/dashboard';
 import { Router } from '@angular/router';
+import { DettaglioService } from '../../services/dettaglio-service';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,8 @@ export class Home implements OnInit {
     public auth:AuthServices,
     private ordineS : OrdineService,
     private dash : Dashboard,
-    private router : Router
+    private router : Router,
+    private dettaglio : DettaglioService
   ) {
   }
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class Home implements OnInit {
     this.prodottoS.list();
     this.prodottoS.categorieList();
     this.prodottoS.produttoriList();
+    this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId);
   }
 
    get prodotti() {

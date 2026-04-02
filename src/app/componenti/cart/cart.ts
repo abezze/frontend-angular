@@ -32,16 +32,17 @@ constructor(
 
 
   ngOnInit(): void {
-    
+
     const state = history.state;
 
     if (state && state.ordine) {
       this.ordineDati = state.ordine;
+      console.log("ordineDati ", this.ordineDati.utente.userName);
       this.mode = state.mode;
       if (this.mode == "U") {
-        this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId); // TODO
+        this.dettaglio.cercaOrdineInCorso(this.ordineDati.utente.userName); // TODO
       } else {
-        this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId);
+        this.dettaglio.cercaOrdineInCorso(this.ordineDati.utente.userName);
       }
     } else {
       this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId);
