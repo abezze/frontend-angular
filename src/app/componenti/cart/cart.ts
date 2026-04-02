@@ -54,8 +54,15 @@ constructor(
   }
 
   aggiungi(dettaglio: any) {
-    if (dettaglio.prodotto.quantita >dettaglio.quantita +1)
-    dettaglio.quantita++;
+    if (dettaglio.prodotto.quantita >dettaglio.quantita ){
+        if (this.ordine) {
+          this.ordineS.cercaOrdineInCorso(this.ordine.utente.userName, dettaglio.prodotto);
+        }
+        else {
+          this.ordineS.cercaOrdineInCorso(this.auth.grant().userId, dettaglio.prodotto);
+        }
+      dettaglio.quantita++;
+    }
   }
 
 
