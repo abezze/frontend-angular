@@ -148,4 +148,11 @@ export class ProdottoDialog implements OnInit{
       })
     })
   }
+
+  confirmDelete(productCode : number) {
+    if (confirm('Sicuro di voler cancellare questo prodotto?')) {
+      this.prodottoServices.delete(productCode);
+    }
+  }
+
 }

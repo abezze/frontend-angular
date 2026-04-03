@@ -39,11 +39,10 @@
                     </thead>
                     <tbody>
                     @for (utente of utenti; track utente.userName) {
-                        <tr>
-                            <td><a (click)="profilo(utente.userName)">{{utente.userName}}</a></td>
-                            <td><a (click)="profilo(utente.userName)">{{utente.email}}</a></td>
-                            <!-- td><a (click)="profilo(utente.userName)">{{utente.role}}</a></td -->
-                            <td>
+                        <tr class="clickable-row" (click)="profilo(utente.userName)">
+                            <td>{{utente.userName}}</td>
+                            <td>{{utente.email}}</td>
+                            <td (click)="$event.stopPropagation()">
                                 <mat-select 
                                     placeholder="Tipo Ruolo" 
                                     [value]="utente.role"

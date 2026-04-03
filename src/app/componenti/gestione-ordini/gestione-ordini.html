@@ -10,22 +10,17 @@
                         <tr>
                             <th>Numero</th>
                             <th>Data</th>
-                            <th>Stato</th>
                             <th>Nome Utente</th>
-                            <th>Azioni</th>
+                            <th>Stato</th>
                         </tr>
                     </thead>
                     <tbody>
                     @for (ordine of ordini; track ordine.id) {
-                        <tr>
+                        <tr class="clickable-row" (click)="editOrd(ordine)">
                             <td>{{ordine.id}}</td>
                             <td>{{ordine.dataOrdine}} {{ordine.orarioOrdine}}</td>
-                            <td>{{ordine.statoOrdine}}</td>
                             <td>{{ordine.utente.userName}}</td>
-                            <td>
-                                <button (click)="editOrd(ordine)"><span role="img" aria-label="edit">✏️</span> </button>
-                                <button (click)="confirmDelete(ordine.id)"><span role="img" aria-label="delete">🗑️</span></button>
-                            </td>
+                            <td>{{ordine.statoOrdine}}</td>
                         </tr>
                     }
                     </tbody>

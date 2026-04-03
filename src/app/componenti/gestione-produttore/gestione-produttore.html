@@ -14,19 +14,15 @@
                             <th>Nome Azienda</th>
                             <th>Codice Fiscale</th>
                             <th>Partita Iva</th>
-                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
                     @for (produttore of produttori; track produttore.id) {
-                        <tr>
+                        <tr class = "clickable-row" (click)="editProd(produttore)">
                             <td>{{produttore.marchio}}</td>
                             <td>{{produttore.nomeAzienda}}</td>
                             <td>{{produttore.codiceFiscale}}</td>
                             <td>{{produttore.partitaIva}}</td>
-                            <td> <button (click)="editProd(produttore)"><span role="img" aria-label="edit">✏️</span> </button>
-                                  <button (click)="confirmDelete(produttore.id)"><span role="img" aria-label="delete">🗑️</span></button>
-                            </td>
                         </tr>
                     }
                     </tbody>

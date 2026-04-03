@@ -57,10 +57,4 @@ export class GestioneProduttore  implements OnInit{
     );
   }
 
-  confirmDelete(id : number) {
-    if (confirm('Sicuro di voler cancellare questo produttore?')) {
-      this.produttoriS.delete(id);
-    }
-  }
-
 }

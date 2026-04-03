@@ -45,6 +45,13 @@
                          <button mat-raised-button color="primary" type="submit" [disabled]="updateForm.invalid"
                         matTooltip="Salvare le modifiche">
                         Aggiorna il produttore</button>
+                        <button 
+                            mat-raised-button 
+                            color="primary" type="submit"
+                            matTooltip="Salvare le modifiche"
+                            (click)="confirmDelete(produttore().id)">
+                            Elimina il produttore
+                        </button>
                     }
                 </div>
             </form>

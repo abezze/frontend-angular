@@ -90,9 +90,19 @@
                         matTooltip="Salvare le modifiche">
                         Crea nuovo prodotto</button>
                     } @else {
-                         <button mat-raised-button color="primary" type="submit"
-                        matTooltip="Salvare le modifiche">
-                        Aggiorna il prodotto</button>
+                        <button 
+                            mat-raised-button 
+                            color="primary" type="submit"
+                            matTooltip="Salvare le modifiche">
+                            Aggiorna il prodotto
+                        </button>
+                        <button 
+                            mat-raised-button 
+                            color="primary" type="submit"
+                            matTooltip="Salvare le modifiche"
+                            (click)="confirmDelete(prodotto().productCode)">
+                            Elimina il prodotto
+                        </button>
                     }
 
                 </div>

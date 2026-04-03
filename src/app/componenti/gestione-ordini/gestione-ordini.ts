@@ -27,18 +27,12 @@ export class GestioneOrdini implements OnInit {
   }
   
   editOrd(ordine : any){
-      this.router.navigate(['/dash/ordine'], { 
-        state: { 
-          ordine: ordine, 
-          mode: "ORDINE" 
-        } 
-      });
-    }
-  
-    confirmDelete(id : number) {
-      if (confirm('Sicuro di voler cancellare questo ordine?')) {
-        this.ordineS.delete(id);
-      }
-    }
+    this.router.navigate(['/dash/ordine'], { 
+      state: { 
+        ordine: ordine, 
+        mode: "ORDINE" 
+      } 
+    });
+  }
 
 }

@@ -87,11 +87,6 @@ export class BikeManager implements OnInit {
       }
     );
   }
-  confirmDelete(productCode : number) {
-    if (confirm('Sicuro di voler cancellare questo prodotto?')) {
-      this.prodottoS.delete(productCode);
-    }
-  }
 
   openImage(url: string) {
     this.selectedImage = url;

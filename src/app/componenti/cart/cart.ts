@@ -4,6 +4,7 @@ import { DettaglioService } from '../../services/dettaglio-service';
 import { Utilities } from '../../services/utilities';
 import { HttpClient } from '@angular/common/http';
 import { AuthServices } from '../../auth/auth-services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -14,28 +15,30 @@ import { AuthServices } from '../../auth/auth-services';
 export class Cart implements OnInit{
   ordine: any;
   mode: any;
+  loadedStatiOrdine : any;
 
 
 
 constructor(
       private ordineS: OrdineService,
-      private util: Utilities,
       private dettaglio : DettaglioService,
-      private http: HttpClient,
+      private router: Router,
       public auth:AuthServices,
     ) {
   }
 
-
-
-
-
-
   ngOnInit(): void {
+    this.ordineS.getStatiOrdine().subscribe(resp => {
+      this.loadedStatiOrdine = resp;
+      this.inizializza();
+    });
+  }
+
+  private inizializza() {
     this.ordine = null;
     this.mode = null;
-    const state = history.state;
 
+    const state = history.state;
     if (state && state.ordine) {
       this.ordine = state.ordine;
       this.mode = state.mode;
@@ -87,8 +90,31 @@ constructor(
 
   }
 
-  eliminaOrdine (){
+  eliminaOrdine() {
+    if (confirm('Sicuro di voler cancellare questo ordine?')) {
+      this.ordineS.delete(this.ordine.id);
+    }
 
+    if (this.mode == "ORDINE") {
+      this.router.navigate(['/dash/ordini']);
+    }
+  }
+
+  
+  changeStatoOrdine(id: number, statoOrdine: string) {
+    const ordineReq = {
+      "id": id,
+      "statoOrdine": statoOrdine
+    }
+    this.ordineS.update(ordineReq)
+      .subscribe({
+        next: ((resp: any) => {
+
+        }),
+        error: ((resp: any) => {
+          console.log(resp.error.msg);
+        })
+      });
   }
 
 }

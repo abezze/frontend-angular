@@ -1,18 +1,29 @@
 <div class="container">
     <mat-card class="example-card" appearance="outlined">
         <mat-card-header class="header-row">
-            <mat-card-title>
-                @if (mode == 'ORDINE'){
-                    Ordine numero {{ordine.id}} di {{ordine.utente.userName}}
-                } @else {
-                    Carrello
-                }
-            </mat-card-title>
+            @if (mode == 'ORDINE'){
+                <mat-card-title>Ordine numero {{ordine.id}} di {{ordine.utente.userName}}</mat-card-title>
+            } @else {
+                <mat-card-title>Carrello</mat-card-title>
+            }
 
         </mat-card-header>
         <mat-divider style="margin-top: 20px;"></mat-divider>
         <mat-card-content>
-          <table class="table table-stripped ">
+            @if (mode == 'ORDINE'){
+                <strong>Stato:</strong>
+                <mat-form-field appearance="outline">
+                    <mat-select 
+                        placeholder="Stato" 
+                        [value]="ordine.statoOrdine"
+                        (selectionChange)="changeStatoOrdine(ordine.id, $event.value)">
+                        @for (statoOrdine of loadedStatiOrdine; track statoOrdine) {
+                            <mat-option [value]="statoOrdine">{{statoOrdine}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            }
+            <table class="table table-stripped ">
                     <thead>
                         <tr>
                             <th></th>

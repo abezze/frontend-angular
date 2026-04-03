@@ -67,6 +67,10 @@ export class OrdineService {
         next: ((r: any) => this.ordini.set(r)),
     });
   }
+  
+  update(body: any){
+    return this.http.put(this.urlOrd + "update", body);
+  }
 
   delete(id:{}){
     console.log("delete: ", id);
@@ -83,6 +87,10 @@ export class OrdineService {
     let params = new HttpParams().set('id', id);
     return this.http.get(this.urlOrd + "findById", {params});
 
+  }
+  
+  getStatiOrdine(){
+    return this.http.get(this.urlOrd + "listStatiOrdine");
   }
 
 }
