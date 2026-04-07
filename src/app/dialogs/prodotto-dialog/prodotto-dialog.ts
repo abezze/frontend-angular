@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, signal} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProdottoService } from '../../services/prodotto-service';
+import { UploadService } from '../../services/upload-service';
 
 @Component({
   selector: 'app-prodotto-dialog',
@@ -15,6 +16,9 @@ export class ProdottoDialog implements OnInit{
   mod: any;
   selectedCategoria: String ;
   image:any;
+
+  fileName: string = '';
+  selectedFile: File | null = null;
 
 
   updateForm: FormGroup = new FormGroup({
@@ -33,6 +37,7 @@ export class ProdottoDialog implements OnInit{
   msg = signal('');
   constructor(
     private prodottoServices: ProdottoService,
+    private uploadService: UploadService,
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<ProdottoDialog>
   ) {
@@ -110,8 +115,7 @@ export class ProdottoDialog implements OnInit{
       .subscribe({
         next: ((resp: any) => {
           console.log(resp);
-          this.prodottoServices.list();
-          this.dialogRef.close();
+          this.uploadImage();
         }),
         error: ((resp: any) => {
           this.msg.set(resp.error.msg);
@@ -152,6 +156,50 @@ export class ProdottoDialog implements OnInit{
   confirmDelete(productCode : number) {
     if (confirm('Sicuro di voler cancellare questo prodotto?')) {
       this.prodottoServices.delete(productCode);
+    }
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    if (!input.files || input.files.length === 0) {
+      this.fileName = '';
+      this.selectedFile = null;
+      return;
+    }
+
+    this.selectedFile = input.files[0]; // recupera il file selezionato
+    this.fileName = this.selectedFile.name;
+    this.image = URL.createObjectURL(this.selectedFile);
+
+    console.log('File selezionato:', this.selectedFile);
+  }
+
+  uploadImage() {
+    console.log("*** upload Image *****:");
+    if (this.selectedFile) {
+      this.uploadService.upload(this.selectedFile, this.prodotto().productCode)
+        .subscribe({
+          next: ((r: any) => {
+            this.uploadService.getUrl(r.msg)   // upload image and save in prodotto
+              .subscribe(({
+                next: ((r: any) => {
+                  this.image = r.msg;    // load url
+                })
+              }))
+
+              this.prodottoServices.list();
+              this.dialogRef.close();
+          }),
+          error: ((r: any) => {
+            console.log(r.error.msg);
+            this.msg.set(r.error.msg);
+          })
+        }
+      );
+    } else {
+      this.prodottoServices.list();
+      this.dialogRef.close();
     }
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProdottoService } from '../../services/prodotto-service';
 import { Utilities } from '../../services/utilities';
 import { ProdottoDialog } from '../../dialogs/prodotto-dialog/prodotto-dialog';
+import { ShowImageDialog } from '../../dialogs/show-image-dialog/show-image-dialog';
 
 @Component({
   selector: 'app-bike-manager',
@@ -88,12 +89,13 @@ export class BikeManager implements OnInit {
     );
   }
 
-  openImage(url: string) {
-    this.selectedImage = url;
-  }
-
-  closeImage() {
-    this.selectedImage = null;
+  openImage(image: any) {
+    console.log("image: ", image);
+    this.util.openDialog(ShowImageDialog,
+      {
+        image: image
+      }
+    );
   }
 
 }

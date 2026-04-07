@@ -12,7 +12,39 @@
             }
         </mat-card-header>
         <mat-card-content>
-           <img [src]="image" class="form-image">
+            <div class="full-row image-row">
+                <div>
+                    <mat-accordion>
+                        <mat-expansion-panel [expanded]="true">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <span>
+                                        Immagine
+                                        @if (fileName) {
+                                        caricata: {{ fileName }}
+                                    }
+                                    </span>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                @if (image) {
+                                    <div>
+                                        <img [src]="image" alt="Uploaded" style="max-width: 300px; display: block;">
+                                    </div>
+                                }
+                                <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                                    <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+                                        <mat-icon>upload</mat-icon>
+                                        Scegli immagine
+                                    </button>
+                                    <input #fileInput type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)">
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+            <br />
             <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-grid">
 
                 <mat-form-field  >

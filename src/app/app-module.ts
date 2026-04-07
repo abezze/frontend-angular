@@ -19,6 +19,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatBadgeModule} from '@angular/material/badge';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -34,6 +35,7 @@ import { ProdottoDialog } from './dialogs/prodotto-dialog/prodotto-dialog';
 import { GestioneProduttore } from './componenti/gestione-produttore/gestione-produttore';
 import { ProduttoreDialog } from './dialogs/produttore-dialog/produttore-dialog';
 import { GestioneOrdini } from './componenti/gestione-ordini/gestione-ordini';
+import { ShowImageDialog } from './dialogs/show-image-dialog/show-image-dialog';
 
 
 @NgModule({
@@ -51,6 +53,7 @@ import { GestioneOrdini } from './componenti/gestione-ordini/gestione-ordini';
     GestioneProduttore,
     ProduttoreDialog,
     GestioneOrdini,
+    ShowImageDialog,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +76,8 @@ import { GestioneOrdini } from './componenti/gestione-ordini/gestione-ordini';
     MatSelectModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatExpansionModule
   ],
   providers: [
     provideHttpClient(withFetch()),

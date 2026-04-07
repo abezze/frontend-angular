@@ -6,6 +6,7 @@ import { OrdineService } from '../../services/ordine-service';
 import { Dashboard } from '../dashboard/dashboard';
 import { Router } from '@angular/router';
 import { DettaglioService } from '../../services/dettaglio-service';
+import { ShowImageDialog } from '../../dialogs/show-image-dialog/show-image-dialog';
 
 @Component({
   selector: 'app-home',
@@ -90,12 +91,13 @@ export class Home implements OnInit {
 
 
 
-  openImage(url: string) {
-    this.selectedImage = url;
-  }
-
-  closeImage() {
-    this.selectedImage = null;
+  openImage(image: any) {
+    console.log("image: ", image);
+    this.util.openDialog(ShowImageDialog,
+      {
+        image: image
+      }
+    );
   }
 
 
