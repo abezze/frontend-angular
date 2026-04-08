@@ -93,4 +93,12 @@ export class OrdineService {
     return this.http.get(this.urlOrd + "listStatiOrdine");
   }
 
+  cercaOrdiniFiltrati(id: number, userName: string, statoOrdine: string){
+    let params = new HttpParams()
+      .set('id', id)
+      .set('userName', userName)
+      .set('statoOrdine', statoOrdine);
+    return this.http.get<any[]>(this.urlOrd + "cercaOrdiniFiltrati", {params});
+  }
+
 }
