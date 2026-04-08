@@ -1,17 +1,19 @@
 <mat-toolbar>
-  <button matIconButton  [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="changePWD()">
-      <mat-icon>password</mat-icon>
-      <span>Cambio password</span>
+  @if (auth.grant().isLogged) {
+    <button matIconButton  [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
     </button>
-    <button mat-menu-item (click)="profilo()">
-      <mat-icon>person</mat-icon>
-      <span>Profile</span>
-    </button>
-  </mat-menu>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="changePWD()">
+        <mat-icon>password</mat-icon>
+        <span>Cambio password</span>
+      </button>
+      <button mat-menu-item (click)="profilo()">
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </button>
+    </mat-menu>
+  }
   <span>Bike Shop</span>
   <span class="example-spacer"></span>
 

@@ -31,6 +31,10 @@
                                     <div>
                                         <img [src]="image" alt="Uploaded" style="max-width: 300px; display: block;">
                                     </div>
+                                } @else {
+                                    <div>
+                                        <img src="no_image.png" alt="Uploaded" style="max-width: 300px; display: block;">
+                                    </div>
                                 }
                                 <div style="display: flex; flex-direction: column; align-items: flex-start;">
                                     <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">

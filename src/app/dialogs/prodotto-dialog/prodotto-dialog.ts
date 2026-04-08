@@ -115,7 +115,7 @@ export class ProdottoDialog implements OnInit{
       .subscribe({
         next: ((resp: any) => {
           console.log(resp);
-          this.uploadImage();
+          this.uploadImage(this.prodotto().productCode);
         }),
         error: ((resp: any) => {
           this.msg.set(resp.error.msg);
@@ -143,8 +143,7 @@ export class ProdottoDialog implements OnInit{
     }).subscribe({
       next: ((resp: any) => {
         console.log(resp);
-        this.prodottoServices.list();
-        this.dialogRef.close();
+        this.uploadImage(this.updateForm.value.productCode);
       }),
       error: ((resp: any) => {
         console.log(resp.error.msg)
@@ -175,10 +174,10 @@ export class ProdottoDialog implements OnInit{
     console.log('File selezionato:', this.selectedFile);
   }
 
-  uploadImage() {
+  uploadImage(productCode: number) {
     console.log("*** upload Image *****:");
     if (this.selectedFile) {
-      this.uploadService.upload(this.selectedFile, this.prodotto().productCode)
+      this.uploadService.upload(this.selectedFile, productCode)
         .subscribe({
           next: ((r: any) => {
             this.uploadService.getUrl(r.msg)   // upload image and save in prodotto
