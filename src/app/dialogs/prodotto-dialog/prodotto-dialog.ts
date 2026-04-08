@@ -28,8 +28,8 @@ export class ProdottoDialog implements OnInit{
     taglia: new FormControl(null, Validators.required),
     peso: new FormControl(null, Validators.required),
     quantita: new FormControl(null, Validators.required),
-    categoria: new FormControl(null, Validators.required),
-    produttore: new FormControl(null, Validators.required),
+    idCategoria: new FormControl(null, Validators.required),
+    idProduttore: new FormControl(null, Validators.required),
     prezzo: new FormControl(null, Validators.required),
 
   })
@@ -59,8 +59,8 @@ export class ProdottoDialog implements OnInit{
         taglia: this.prodotto().taglia,
         peso: this.prodotto().peso ,
         quantita: this.prodotto().quantita,
-        categoria: this.prodotto().categoria,
-        produttore: this.prodotto().produttore,
+        idCategoria: this.prodotto().categoria.id,
+        idProduttore: this.prodotto().produttore.id,
         prezzo: this.prodotto().prezzo ,
 
       })
@@ -100,11 +100,11 @@ export class ProdottoDialog implements OnInit{
     if (this.updateForm.controls['quantita'].dirty)
       updateBody.quantita = this.updateForm.value.quantita;
 
-    if (this.updateForm.controls['categoria'].dirty)
-      updateBody.categoriaId = this.updateForm.value.categoria.id;
+    if (this.updateForm.controls['idCategoria'].dirty)
+      updateBody.idCategoria = this.updateForm.value.idCategoria;
 
-    if (this.updateForm.controls['produttore'].dirty)
-      updateBody.produttoreId = this.updateForm.value.produttore.id;
+    if (this.updateForm.controls['idProduttore'].dirty)
+      updateBody.idProduttore = this.updateForm.value.idProduttore;
 
     if (this.updateForm.controls['prezzo'].dirty)
       updateBody.prezzo = this.updateForm.value.prezzo;
@@ -137,8 +137,8 @@ export class ProdottoDialog implements OnInit{
       peso: this.updateForm.value.peso ,
       quantita: this.updateForm.value.quantita,
       prezzo: this.updateForm.value.prezzo ,
-      idCategoria: this.updateForm.value.categoria.id,
-      idProduttore: this.updateForm.value.produttore.id
+      idCategoria: this.updateForm.value.idCategoria,
+      idProduttore: this.updateForm.value.idProduttore
 
     }).subscribe({
       next: ((resp: any) => {
