@@ -55,9 +55,8 @@
                             <td><button (click)="togli(dettaglio)">-</button>
                                 {{dettaglio.quantita}}
                                 <button (click)="aggiungi(dettaglio)">+</button>
-                            </td>
-                            <td><!-- <button (click)="editProd(dettaglio)"><span role="img" aria-label="edit">✏️</span> </button>
-                                  <button (click)="confirmDelete(dettaglio.id)"><span role="img" aria-label="delete">🗑️</span></button> -->
+                                &nbsp;
+                                <button (click)="rimuoviDalCarrello(dettaglio)"><span role="img" aria-label="delete">🗑️</span></button>
                             </td>
                         </tr>
                     }

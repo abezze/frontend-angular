@@ -21,7 +21,7 @@ export class Cart implements OnInit{
 
 constructor(
       private ordineS: OrdineService,
-      private dettaglio : DettaglioService,
+      private dettaglioS : DettaglioService,
       private router: Router,
       public auth:AuthServices,
     ) {
@@ -43,17 +43,17 @@ constructor(
       this.ordine = state.ordine;
       this.mode = state.mode;
       if (this.mode == "ORDINE") {
-        this.dettaglio.dettagli.set(this.ordine.dettagli);
+        this.dettaglioS.dettagli.set(this.ordine.dettagli);
       } else {
-        this.dettaglio.cercaOrdineInCorso(this.ordine.utente.userName);
+        this.dettaglioS.cercaOrdineInCorso(this.ordine.utente.userName);
       }
     } else {
-      this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId);
+      this.dettaglioS.cercaOrdineInCorso(this.auth.grant().userId);
     }
   }
 
   get dettagli() {
-    return this.dettaglio.dettagli();
+    return this.dettaglioS.dettagli();
   }
 
   aggiungi(dettaglio: any) {
@@ -71,14 +71,18 @@ constructor(
 
   togli(dettaglio: any) {
     if (dettaglio.quantita > 1) {
-      dettaglio.quantita--;
+      let ordineId = this.ordine?.id || this.ordineS.ordine()?.id;
+      this.dettaglioS.aggiornaDettaglio(dettaglio.id, dettaglio.quantita-1, ordineId, dettaglio.prodotto.productCode);
     } else {
       this.rimuoviDalCarrello(dettaglio);
     }
   }
 
-    rimuoviDalCarrello(dettaglio: any) {
-    //this.dettagli = this.dettagli.filter(p => p.id !== dettaglio.id);
+  rimuoviDalCarrello(dettaglio: any) {
+    if (confirm('Sicuro di voler togliere il prodotto dall\'ordine?')) {
+      let ordineId = this.ordine?.id || this.ordineS.ordine()?.id;
+      this.dettaglioS.delete(dettaglio.id, ordineId);
+    }
   }
 
 

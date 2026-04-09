@@ -10,7 +10,7 @@ import { DettaglioService } from './dettaglio-service';
 })
 export class OrdineService {
   private urlOrd = "http://localhost:9080/rest/ordine/";
-  ordine = signal<any[]>([]);
+  ordine = signal<any | null>(null);
   ordini = signal<any[]>([]);
   idOrdine: number;
 

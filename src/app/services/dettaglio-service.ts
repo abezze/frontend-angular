@@ -7,7 +7,7 @@ import { CartService } from './cart-service';
   providedIn: 'root',
 })
 export class DettaglioService {
-   private urlOrd = "http://localhost:9080/rest/ordine/";
+  private urlOrd = "http://localhost:9080/rest/ordine/";
   private urlDett = "http://localhost:9080/rest/dettaglioordine/";
   dettagli = signal<any[]>([]);
   creatoDett:number = 0;
@@ -88,7 +88,37 @@ export class DettaglioService {
         return this.creatoDett;
 
   }
-
-
+  
+  aggiornaDettaglio(id: number, quantita: number, ordineId: number, prodottoId: number) {
+    let dettaglioReq = {
+      id: id,  
+      quantita: quantita,
+      ordineId: ordineId,
+      prodottoId: prodottoId
+    };
+    console.log("DettaglioService.aggiornaDettaglio: ", dettaglioReq);
+    return this.http.put(this.urlDett + "update", dettaglioReq).subscribe({
+      next: (res) => {
+        console.log("Dettaglio aggiornato", res);
+        this.listDettaglio(ordineId);
+      },
+      error: (err) => {
+        console.error("Dettaglio non aggiornato", err);
+      }
+    });
+  }
+  
+  delete(dettaglioId: number, ordineId: number){
+    console.log("DettaglioService.delete: ", dettaglioId);
+    this.http.delete(this.urlDett + "delete/" + dettaglioId).subscribe({
+      next: (res) => {
+        console.log("Dettaglio eliminato", res);
+        this.listDettaglio(ordineId);
+      },
+      error: (err) => {
+        console.error("Dettaglio non eliminato", err);
+      }
+    });
+  }
 
 }
