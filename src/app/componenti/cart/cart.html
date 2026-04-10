@@ -2,7 +2,14 @@
     <mat-card class="example-card" appearance="outlined">
         <mat-card-header class="header-row">
             @if (mode == 'ORDINE'){
-                <mat-card-title>Ordine numero {{ordine.id}} di {{ordine.utente.userName}}</mat-card-title>
+                <mat-card-title>
+                    @if (isVisualizza){
+                        Visualizzazione ordine
+                    } @else {
+                        Ordine
+                    }
+                    numero {{ordine.id}} di {{ordine.utente.userName}}
+                </mat-card-title>
             } @else {
                 <mat-card-title>Carrello</mat-card-title>
             }
@@ -11,30 +18,35 @@
         <mat-divider style="margin-top: 20px;"></mat-divider>
         <mat-card-content>
             @if (mode == 'ORDINE'){
-                <strong>Stato:</strong>
-                <mat-form-field appearance="outline">
-                    <mat-select 
-                        placeholder="Stato" 
-                        [value]="ordine.statoOrdine"
-                        (selectionChange)="changeStatoOrdine(ordine.id, $event.value)">
-                        @for (statoOrdine of loadedStatiOrdine; track statoOrdine) {
-                            <mat-option [value]="statoOrdine">{{statoOrdine}}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
+                <br />
+                <strong>Stato: </strong>
+                @if(isVisualizza) {
+                    <span appearance="outline">{{ordine.statoOrdine}}</span>
+                    <br />
+                } @else {
+                    <mat-form-field appearance="outline">
+                        <mat-select 
+                            placeholder="Stato" 
+                            [value]="ordine.statoOrdine"
+                            (selectionChange)="changeStatoOrdine(ordine.id, $event.value)">
+                            @for (statoOrdine of loadedStatiOrdine; track statoOrdine) {
+                                <mat-option [value]="statoOrdine">{{statoOrdine}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                }
             }
+            <br />
             <table class="table table-stripped ">
                     <thead>
                         <tr>
                             <th></th>
                             <th>Descrizione</th>
                             <th>Colore</th>
-                            <th>Taglia</th>
-                            <th>Prezzo</th>
-                            <th>Disponibilità</th>
-                            <th>Quantità</th>
-
-
+                            <th style="text-align: center;">Taglia</th>
+                            <th style="text-align: center;">Prezzo</th>
+                            <th style="text-align: center;">Disponibilità</th>
+                            <th style="text-align: center;">Quantità</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,31 +61,42 @@
                             </td>
                             <td>{{dettaglio.prodotto.descrizione}}</td>
                             <td>{{dettaglio.prodotto.colore}}</td>
-                            <td>{{dettaglio.prodotto.taglia}}</td>
-                            <td>{{dettaglio.prodotto.prezzo}}</td>
-                            <td>{{dettaglio.prodotto.quantita}}</td>
-                            <td><button (click)="togli(dettaglio)">-</button>
+                            <td style="text-align: center;">{{dettaglio.prodotto.taglia}}</td>
+                            <td style="text-align: center;">{{dettaglio.prodotto.prezzo}}</td>
+                            <td style="text-align: center;">{{dettaglio.prodotto.quantita}}</td>
+                            <td style="text-align: center;">
+                                @if(!isVisualizza) {
+                                    <button (click)="togli(dettaglio)">-</button>
+                                }
                                 {{dettaglio.quantita}}
-                                <button (click)="aggiungi(dettaglio)">+</button>
-                                &nbsp;
-                                <button (click)="rimuoviDalCarrello(dettaglio)"><span role="img" aria-label="delete">🗑️</span></button>
+                                 @if(!isVisualizza) {
+                                    <button (click)="aggiungi(dettaglio)">+</button>
+                                    &nbsp;
+                                    <button (click)="rimuoviDalCarrello(dettaglio)"><span role="img" aria-label="delete">🗑️</span></button>
+                                 }
                             </td>
                         </tr>
                     }
 
 
                     </tbody>
-                 </table>
-
+            </table>
+            <br />
         </mat-card-content>
-        <mat-card-footer  class="header-row">
-                    <hr>
-                    <h3>Totale Ordine: {{ totale | currency:'EUR' }}</h3>
-                    @if (mode == 'ORDINE'){
-                        <button mat-raised-button color="primary"  (click)="eliminaOrdine()" >Elimina Ordine</button>
-                    } @else {
-                        <button mat-raised-button color="primary"  (click)="confermaOrdine()" >Conferma Ordine</button>
-                    }
+        <mat-card-footer  style="text-align: right;">
+            <h3>Totale Ordine: {{ totale | currency:'EUR' }}</h3>
+            @if (mode == 'ORDINE'){
+                @if (!isVisualizza){
+                    &nbsp;<button mat-raised-button color="primary"  (click)="eliminaOrdine()" >Elimina Ordine</button>
+                    &nbsp;
+                }
+            } @else {
+                &nbsp;<button mat-raised-button color="primary"  (click)="eliminaOrdine()" >Elimina Ordine</button>
+                &nbsp;<button mat-raised-button color="primary"  (click)="confermaOrdine()" >Conferma Ordine</button>
+                &nbsp;
+            }
+            <br />
+            <br />
         </mat-card-footer>
     </mat-card>
 

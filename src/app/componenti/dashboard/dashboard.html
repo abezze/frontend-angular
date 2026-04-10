@@ -12,6 +12,10 @@
         <mat-icon>person</mat-icon>
         <span>Profile</span>
       </button>
+      <button mat-menu-item [routerLink]="['/dash/visualizzaordini']" [state]="{ mode: 'VISUALIZZA' }">
+        <mat-icon>receipt_long</mat-icon>
+        <span>Visualizza ordini</span>
+      </button>
     </mat-menu>
   }
   <span>Bike Shop</span>

@@ -20,6 +20,7 @@ const routes: Routes = [
     {path: 'user', component:GestioneUtente, canActivate:[authGuard, authAdminGuard]},
     {path: 'produttori', component:GestioneProduttore, canActivate: [authGuard, authAdminGuard]},
     {path: 'ordini', component:GestioneOrdini, canActivate: [authGuard, authAdminGuard]},
+    {path: 'visualizzaordini', component:GestioneOrdini, canActivate: [authGuard]},
     {path: 'ordine', component:Cart, canActivate:[authGuard]},
     ]
   },

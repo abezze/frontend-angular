@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class Cart implements OnInit{
   ordine: any;
   mode: any;
+  isVisualizza: boolean;
   loadedStatiOrdine : any;
 
 
@@ -37,6 +38,7 @@ constructor(
   private inizializza() {
     this.ordine = null;
     this.mode = null;
+    this.isVisualizza = false;
 
     const state = history.state;
     if (state && state.ordine) {
@@ -44,6 +46,9 @@ constructor(
       this.mode = state.mode;
       if (this.mode == "ORDINE") {
         this.dettaglioS.dettagli.set(this.ordine.dettagli);
+        if (state.isVisualizza) {
+          this.isVisualizza = state.isVisualizza;
+        }
       } else {
         this.dettaglioS.cercaOrdineInCorso(this.ordine.utente.userName);
       }

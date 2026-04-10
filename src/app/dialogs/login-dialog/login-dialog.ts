@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Utilities } from '../../services/utilities';
 import { NgForm } from '@angular/forms';
 import { RegistrazioneDialog } from '../registrazione-dialog/registrazione-dialog';
+import { ProdottoService } from '../../services/prodotto-service';
+import { DettaglioService } from '../../services/dettaglio-service';
 
 @Component({
   selector: 'app-login-dialog',
@@ -20,6 +22,8 @@ export class LoginDialog {
 
   constructor(
     private account: UtenteService,
+    private prodottoS: ProdottoService,
+    private dettaglio : DettaglioService,
     private auth: AuthServices,
     private routing: Router,
     private util: Utilities,
@@ -42,6 +46,10 @@ export class LoginDialog {
 
         console.log('[LoginDialog] dopo login, isAuthenticated =', this.auth.isAuthenticated() );
 
+        this.prodottoS.list();
+        this.prodottoS.categorieList();
+        this.prodottoS.produttoriList();
+        this.dettaglio.cercaOrdineInCorso(this.auth.grant().userId);
 
         this.dialogRef.close(true);
         this.routing.navigate(['/dash']);

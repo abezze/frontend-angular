@@ -8,31 +8,33 @@
             <div class="search-row">
                 <mat-form-field>
                     <mat-label>Numero</mat-label>
-                    <input matInput type="text" [(ngModel)]="searchNumero" (input)="search();" >
+                    <input matInput type="text" [(ngModel)]="searchNumero" (input)="searchOridni();" >
                     @if (searchNumero) {
-                        <button matSuffix matIconButton aria-label="Clear" (click)="searchNumero=''; search();">
+                        <button matSuffix matIconButton aria-label="Clear" (click)="searchNumero=''; searchOridni();">
                             <mat-icon>close</mat-icon>
                         </button>
                     }
                 </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Nome Utente</mat-label>
-                    <input matInput type="text" [(ngModel)]="searchNomeUtente" (input)="search();">
-                    @if (searchNomeUtente) {
-                        <button matSuffix matIconButton aria-label="Clear" (click)="searchNomeUtente=''; search();">
-                            <mat-icon>close</mat-icon>
-                        </button>
-                    }
-                </mat-form-field>
+                @if(mode !== "VISUALIZZA") {
+                    <mat-form-field>
+                        <mat-label>Nome Utente</mat-label>
+                        <input matInput type="text" [(ngModel)]="searchNomeUtente" (input)="searchOridni();">
+                        @if (searchNomeUtente) {
+                            <button matSuffix matIconButton aria-label="Clear" (click)="searchNomeUtente=''; searchOridni();">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        }
+                    </mat-form-field>
+                }
                 <mat-form-field>
                     <mat-label>Stato</mat-label>
-                    <mat-select [(ngModel)]="searchStato" (selectionChange)="search();">
+                    <mat-select [(ngModel)]="searchStato" (selectionChange)="searchOridni();">
                         @for (statoOrdine of loadedStatiOrdine; track statoOrdine) {
                             <mat-option [value]="statoOrdine">{{statoOrdine}}</mat-option>
                         }
                     </mat-select>
                     @if (searchStato){
-                        <button matSuffix matIconButton aria-label="Clear" (click)="searchStato=''; search();">
+                        <button matSuffix matIconButton aria-label="Clear" (click)="searchStato=''; searchOridni();">
                             <mat-icon>close</mat-icon>
                         </button>
                     }
@@ -43,7 +45,9 @@
                     <tr>
                         <th>Numero</th>
                         <th>Data</th>
-                        <th>Nome Utente</th>
+                        @if(mode !== "VISUALIZZA") {
+                            <th>Nome Utente</th>
+                        }
                         <th>Stato</th>
                     </tr>
                 </thead>
@@ -52,7 +56,9 @@
                     <tr class="clickable-row" (click)="editOrd(ordine)">
                         <td>{{ordine.id}}</td>
                         <td>{{ordine.dataOrdine}} {{ordine.orarioOrdine}}</td>
-                        <td>{{ordine.utente.userName}}</td>
+                        @if(mode !== "VISUALIZZA") {
+                            <td>{{ordine.utente.userName}}</td>
+                        }
                         <td>{{ordine.statoOrdine}}</td>
                     </tr>
                 }

@@ -4,10 +4,9 @@ import { Utilities } from '../../services/utilities';
 import { AuthServices } from '../../auth/auth-services';
 import { OrdineService } from '../../services/ordine-service';
 import { Dashboard } from '../dashboard/dashboard';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DettaglioService } from '../../services/dettaglio-service';
 import { ShowImageDialog } from '../../dialogs/show-image-dialog/show-image-dialog';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -32,19 +31,9 @@ export class Home implements OnInit {
     private router : Router,
     private dettaglio : DettaglioService
   ) {
-
-    // Faccio questo per forzare il caricamento/aggiornamento dei dati quando entro nella home
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.caricaDati();
-    });
   }
   ngOnInit(): void {
-    this.caricaDati();
-  }
 
-  private caricaDati() {
     this.prodottoS.list();
     this.prodottoS.categorieList();
     this.prodottoS.produttoriList();
