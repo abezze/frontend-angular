@@ -21,13 +21,13 @@ export class DettaglioService {
       this.http.get(this.urlOrd + "findLastByUtenteAndStatoOrdine" , { params })
         .subscribe({
           next: ((r: any) => {
-            console.log("ordine trovato  r.id :", r.id);
-
-            this.listDettaglio( r.id);
+            if (r) {
+              this.listDettaglio( r.id);
+            }
 
         }), error: err => {
                   console.error('Error order impossible to create for user :', err);
-                  this.cartService.setMsg("Carrello vuoto o non trovato ");
+                  this.cartService.setMsg("Carrello vuoto");
                 }
 
 

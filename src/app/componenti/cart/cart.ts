@@ -5,6 +5,8 @@ import { Utilities } from '../../services/utilities';
 import { HttpClient } from '@angular/common/http';
 import { AuthServices } from '../../auth/auth-services';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UtenteService } from '../../services/utente-service';
 
 @Component({
   selector: 'app-cart',
@@ -17,14 +19,29 @@ export class Cart implements OnInit{
   mode: any;
   isVisualizza: boolean;
   loadedStatiOrdine : any;
+  loadedTipoIndirizzo : any;
 
-
+  indirizzoForm: FormGroup = new FormGroup({
+    id: new FormControl(null),
+    tipoIndirizzo: new FormControl(null, Validators.required),
+    nome: new FormControl(null, Validators.required),
+    cognome: new FormControl(null, Validators.required),
+    via: new FormControl(null, Validators.required),
+    citta: new FormControl(null, Validators.required),
+    cap: new FormControl(null, Validators.required),
+    nazione : new FormControl(null, Validators.required),
+    telefono : new FormControl(null, Validators.required),
+    codiceFiscale: new FormControl(null, Validators.required),
+    partitaIva: new FormControl(null),
+    //ordineId: new FormControl(null, Validators.required)
+  });
 
 constructor(
       private ordineS: OrdineService,
       private dettaglioS : DettaglioService,
       private router: Router,
       public auth:AuthServices,
+      private utenteS: UtenteService
     ) {
   }
 
@@ -36,6 +53,10 @@ constructor(
   }
 
   private inizializza() {
+    this.utenteS.getTipiIndirizzi().subscribe(resp => {
+      this.loadedTipoIndirizzo = resp;
+    });
+
     this.ordine = null;
     this.mode = null;
     this.isVisualizza = false;
@@ -96,7 +117,7 @@ constructor(
   }
 
   confermaOrdine (){
-
+    this.ordineS.confermaOrdine(this.ordine, this.auth.grant().userId); // TODO
   }
 
   eliminaOrdine() {
@@ -124,6 +145,10 @@ constructor(
           console.log(resp.error.msg);
         })
       });
+  }
+
+  onSubmitIndirizzo() {
+    throw new Error('Method not implemented.'); // TODO
   }
 
 }

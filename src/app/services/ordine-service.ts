@@ -24,22 +24,16 @@ export class OrdineService {
     this.http.get(this.urlOrd + "findLastByUtenteAndStatoOrdine" , { params })
       .subscribe({
         next: ((r: any) => {
-          console.log("ordine trovato già presente r.id :", r.id);
-          console.log(r);
-          this.idOrdine= r.id;
-          console.log(" this.idOrdine ",  this.idOrdine);
-          this.ordine.set(r);
-          this.dettaglioS.aggiungiDettaglioAllOrdine(bike, this.idOrdine);
+          if (r) { // Ordine trovato già presente
+            this.idOrdine= r.id;
+            this.ordine.set(r);
+            this.dettaglioS.aggiungiDettaglioAllOrdine(bike, this.idOrdine);
+          } else { // Ordine non trovato vado a crearlo
+            let ordinezero = {
+              userName: userId
+            };
 
-      })   ,
-        error: err => {
-          console.log('Not found any order for user :', err);
-          let ordinezero = {
-                userName: userId
-              };
-          console.log(ordinezero);
-          console.log("ordine non trovato vado a crearlo");
-          this.http.post(this.urlOrd+ "create", ordinezero)
+            this.http.post(this.urlOrd+ "create", ordinezero)
             .subscribe({
                 next: ((r: any) => {
                   this.ordine.set(r);
@@ -53,6 +47,10 @@ export class OrdineService {
                error: err => {
                 console.error('Error order impossible to create for user :', err);
                }});
+          }
+      })   ,
+        error: err => {
+          console.log('Not found any order for user :', err);
         }
 
     });
@@ -99,6 +97,20 @@ export class OrdineService {
       .set('userName', userName)
       .set('statoOrdine', statoOrdine);
     return this.http.get<any[]>(this.urlOrd + "cercaOrdiniFiltrati", {params});
+  }
+
+  confermaOrdine(ordine: any, userName: string) {
+    if (ordine) {
+      console.log("TODO");
+    } else {
+      let params = new HttpParams().set("userName", userName);
+      this.http.get(this.urlOrd + "findLastByUtenteAndStatoOrdine", {params}).subscribe({
+        next: (ordineTrovato) => {
+          console.log("Ordine trovato: ", ordineTrovato);
+        },
+        error: err => console.error("Ordine non trovato: ", err)
+      });
+    }
   }
 
 }

@@ -74,7 +74,6 @@ export class Home implements OnInit {
   addToCart(bike : any){
 
       this.ordineId = this.ordineS.cercaOrdineInCorso(this.auth.grant().userId, bike);
-      console.log("this.ordineId", this.ordineId);
 
       //this.ordineS.ordine
       /*this.creatoDett = this.ordineS.aggiungiDettaglio(bike, this.ordineId);

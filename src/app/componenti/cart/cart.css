@@ -31,3 +31,24 @@
 .clickable-row{
     cursor: pointer;
 }
+
+mat-form-field {
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.button-group {
+  grid-column: span 3; /* 👈 pulsante centrato su tutta la riga */
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}

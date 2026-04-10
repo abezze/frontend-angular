@@ -82,6 +82,81 @@
                     </tbody>
             </table>
             <br />
+            <div>
+                <mat-accordion>
+                    <mat-expansion-panel [expanded]="false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h5><span>Dettagli di spedizione:</span></h5>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <form [formGroup]="indirizzoForm" (ngSubmit)="onSubmitIndirizzo()" class="form-grid">
+                            <input type="hidden" name="id">
+                            <mat-form-field>
+                                <mat-select formControlName="tipoIndirizzo" placeholder="Tipo Indirizzo">
+                                    @for (tipo of loadedTipoIndirizzo; track tipo) {
+                                        <mat-option [value]="tipo">{{ tipo }}</mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Nome</mat-label>
+                                <input matInput type="text" name="nome" formControlName="nome">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Cognome</mat-label>
+                                <input matInput type="text" name="cognome" formControlName="cognome">
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="fill">
+                                <mat-label>Via</mat-label>
+                                <input matInput type="text" name="via" formControlName="via">
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="fill">
+                                <mat-label>Città</mat-label>
+                                <input matInput type="text" name="citta" formControlName="citta">
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="fill">
+                                <mat-label>CAP</mat-label>
+                                <input matInput type="text" name="cap" formControlName="cap">
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="fill">
+                                <mat-label>Nazione</mat-label>
+                                <input matInput type="text" name="nazione" formControlName="nazione">
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="fill">
+                                <mat-label>telefono</mat-label>
+                                <input matInput type="tel" name="telefono" formControlName="telefono" oninput="this.value = this.value.replace(/[^0-9+]/g, '');">
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="fill">
+                                <mat-label>Codice Fiscale</mat-label>
+                                <input matInput type="text" name="codiceFiscale" formControlName="codiceFiscale">
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="fill">
+                                <mat-label>partitaIva</mat-label>
+                                <input matInput type="text" name="partitaIva" formControlName="partitaIva">
+                            </mat-form-field>
+
+                            <div class="button-group">
+                                <button mat-raised-button color="primary" type="submit" [disabled]="indirizzoForm.invalid"
+                                    matTooltip="Salvare le modifiche">
+                                    Conferma Indirizzo
+                                </button>
+                            </div>
+                        </form>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <br />
         </mat-card-content>
         <mat-card-footer  style="text-align: right;">
             <h3>Totale Ordine: {{ totale | currency:'EUR' }}</h3>
@@ -90,7 +165,7 @@
                     &nbsp;<button mat-raised-button color="primary"  (click)="eliminaOrdine()" >Elimina Ordine</button>
                     &nbsp;
                 }
-            } @else {
+            } @else if(dettagli.length > 0) {
                 &nbsp;<button mat-raised-button color="primary"  (click)="eliminaOrdine()" >Elimina Ordine</button>
                 &nbsp;<button mat-raised-button color="primary"  (click)="confermaOrdine()" >Conferma Ordine</button>
                 &nbsp;
