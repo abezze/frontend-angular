@@ -66,13 +66,17 @@
                             <td style="text-align: center;">{{dettaglio.prodotto.quantita}}</td>
                             <td style="text-align: center;">
                                 @if(!isVisualizza) {
-                                    <button (click)="togli(dettaglio)">-</button>
+                                    @if (!ordine || ordine?.statoOrdine === "IN_CORSO") {
+                                        <button (click)="togli(dettaglio)">-</button>
+                                    }
                                 }
                                 {{dettaglio.quantita}}
                                  @if(!isVisualizza) {
-                                    <button (click)="aggiungi(dettaglio)">+</button>
-                                    &nbsp;
-                                    <button (click)="rimuoviDalCarrello(dettaglio)"><span role="img" aria-label="delete">🗑️</span></button>
+                                     @if (!ordine || ordine?.statoOrdine === "IN_CORSO") {
+                                        <button (click)="aggiungi(dettaglio)">+</button>
+                                        &nbsp;
+                                        <button (click)="rimuoviDalCarrello(dettaglio)"><span role="img" aria-label="delete">🗑️</span></button>
+                                     }
                                  }
                             </td>
                         </tr>
@@ -91,10 +95,12 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
 
-                        <form [formGroup]="indirizzoForm" (ngSubmit)="onSubmitIndirizzo()" class="form-grid">
+                        <form [formGroup]="indirizzoForm" class="form-grid">
                             <input type="hidden" name="id">
                             <mat-form-field>
-                                <mat-select formControlName="tipoIndirizzo" placeholder="Tipo Indirizzo">
+                                <mat-select formControlName="tipoIndirizzo" placeholder="Tipo Indirizzo"
+                                    (selectionChange)="changeTipoIndirizzo($event.value)"
+                                >
                                     @for (tipo of loadedTipoIndirizzo; track tipo) {
                                         <mat-option [value]="tipo">{{ tipo }}</mat-option>
                                     }
@@ -145,13 +151,6 @@
                                 <mat-label>partitaIva</mat-label>
                                 <input matInput type="text" name="partitaIva" formControlName="partitaIva">
                             </mat-form-field>
-
-                            <div class="button-group">
-                                <button mat-raised-button color="primary" type="submit" [disabled]="indirizzoForm.invalid"
-                                    matTooltip="Salvare le modifiche">
-                                    Conferma Indirizzo
-                                </button>
-                            </div>
                         </form>
                     </mat-expansion-panel>
                 </mat-accordion>
@@ -161,15 +160,22 @@
         <mat-card-footer  style="text-align: right;">
             <h3>Totale Ordine: {{ totale | currency:'EUR' }}</h3>
             @if (mode == 'ORDINE'){
-                @if (!isVisualizza){
+                @if (ordine.statoOrdine === "IN_CORSO" || ordine.statoOrdine === "CONFERMATO"){
                     &nbsp;<button mat-raised-button color="primary"  (click)="eliminaOrdine()" >Elimina Ordine</button>
-                    &nbsp;
+                }
+                @if(isVisualizza) {
+                    @if (ordine.statoOrdine === "IN_CORSO"){
+                        &nbsp;<button mat-raised-button color="primary"  (click)="vaiAlCarrello()" >Vai al carrello</button>
+                    }
+                    @if (ordine.statoOrdine === "CONFERMATO"){
+                        &nbsp;<button mat-raised-button color="primary"  (click)="vaiAlPagamento()" >Vai al pagamento</button>
+                    }
                 }
             } @else if(dettagli.length > 0) {
                 &nbsp;<button mat-raised-button color="primary"  (click)="eliminaOrdine()" >Elimina Ordine</button>
-                &nbsp;<button mat-raised-button color="primary"  (click)="confermaOrdine()" >Conferma Ordine</button>
-                &nbsp;
+                &nbsp;<button mat-raised-button color="primary"  (click)="confermaOrdine()" [disabled]="indirizzoForm.invalid">Conferma Ordine</button>
             }
+            &nbsp;
             <br />
             <br />
         </mat-card-footer>

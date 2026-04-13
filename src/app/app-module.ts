@@ -36,6 +36,7 @@ import { GestioneProduttore } from './componenti/gestione-produttore/gestione-pr
 import { ProduttoreDialog } from './dialogs/produttore-dialog/produttore-dialog';
 import { GestioneOrdini } from './componenti/gestione-ordini/gestione-ordini';
 import { ShowImageDialog } from './dialogs/show-image-dialog/show-image-dialog';
+import { PagamentoDialog } from './dialogs/pagamento-dialog/pagamento-dialog';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { ShowImageDialog } from './dialogs/show-image-dialog/show-image-dialog';
     ProduttoreDialog,
     GestioneOrdini,
     ShowImageDialog,
+    PagamentoDialog,
   ],
   imports: [
     BrowserModule,

@@ -41,40 +41,46 @@ constructor(
       private dettaglioS : DettaglioService,
       private router: Router,
       public auth:AuthServices,
-      private utenteS: UtenteService
+      private utenteS: UtenteService,
+      private accoutServices: UtenteService
     ) {
   }
 
   ngOnInit(): void {
     this.ordineS.getStatiOrdine().subscribe(resp => {
       this.loadedStatiOrdine = resp;
-      this.inizializza();
+
+      this.utenteS.getTipiIndirizzi().subscribe(resp => {
+        this.loadedTipoIndirizzo = resp;
+        this.inizializza();
+      });
     });
   }
 
   private inizializza() {
-    this.utenteS.getTipiIndirizzi().subscribe(resp => {
-      this.loadedTipoIndirizzo = resp;
-    });
-
     this.ordine = null;
     this.mode = null;
     this.isVisualizza = false;
-
     const state = history.state;
     if (state && state.ordine) {
-      this.ordine = state.ordine;
+      this.ordine = state.ordine; 
       this.mode = state.mode;
       if (this.mode == "ORDINE") {
         this.dettaglioS.dettagli.set(this.ordine.dettagli);
         if (state.isVisualizza) {
           this.isVisualizza = state.isVisualizza;
+          this.indirizzoForm.disable();
         }
       } else {
         this.dettaglioS.cercaOrdineInCorso(this.ordine.utente.userName);
       }
+      
     } else {
       this.dettaglioS.cercaOrdineInCorso(this.auth.grant().userId);
+    }
+
+    if (this.ordine?.indirizzo) {
+      this.indirizzoForm.patchValue(this.ordine.indirizzo);
     }
   }
 
@@ -117,16 +123,42 @@ constructor(
   }
 
   confermaOrdine (){
-    this.ordineS.confermaOrdine(this.ordine, this.auth.grant().userId); // TODO
+    if (this.indirizzoForm.invalid) {
+      console.log("Form non valido"); // TODO inserire messaggio di errore
+    }
+    
+    console.log("IndirizzoForm: ", this.indirizzoForm.value);
+    this.ordineS.confermaOrdine(this.ordine, this.auth.grant().userId, this.indirizzoForm.value);
   }
 
   eliminaOrdine() {
     if (confirm('Sicuro di voler cancellare questo ordine?')) {
-      this.ordineS.delete(this.ordine.id);
-    }
-
-    if (this.mode == "ORDINE") {
-      this.router.navigate(['/dash/ordini']);
+      if (!this.ordine) {
+        this.ordineS.findLastByUtenteAndStatoOrdine(this.auth.grant().userId).subscribe({
+          next: (ordineTrovato: any) => {
+            this.ordineS.delete(ordineTrovato.id);
+              this.router.navigate(['/dash/home']);
+          },
+          error: err => console.error("Errore durante il recupero dell'ordine in corso di " + this.auth.grant().userId + ": ", err)
+        });
+      } else {
+        this.ordine.statoOrdine = "CANCELLATO";
+        this.ordineS.update(this.ordine).subscribe({
+          next: () => {
+            console.log("Ordine " + this.ordine.id + " aggiornato correttamente");
+            if(this.isVisualizza) {
+              this.router.navigate(["/dash/visualizzaordini"], { 
+                state: { mode: 'VISUALIZZA' } 
+              });
+            } else if(this.mode === "ORDINE") {
+              this.router.navigate(["/dash/ordini"]);
+            } else {
+              this.router.navigate(['/dash/home']);
+            }
+          },
+          error: err => console.error("Errore durante il l'aggiornamento dell'ordine " + this.ordine.id + ": ", err)
+        });
+      }
     }
   }
 
@@ -147,8 +179,52 @@ constructor(
       });
   }
 
-  onSubmitIndirizzo() {
-    throw new Error('Method not implemented.'); // TODO
+  changeTipoIndirizzo(tipoIndirizzo: string) {
+    console.log("Tipo indirizzo selezionato: ", tipoIndirizzo);
+    if (this.ordine) {
+      
+    } else {console.log("Ordine non trovato: ", this.ordine);
+      this.accoutServices.getUserAnags(this.auth.grant().userId).subscribe({
+        next: ((user:any) => {
+          let indirizzoTrovato = false;
+          for (let i = 0; i < user.anagrafiche.length; i++) {
+            if (user.anagrafiche[i].tipoIndirizzo == tipoIndirizzo) {
+              this.indirizzoForm.patchValue({
+                tipoIndirizzo: user.anagrafiche[i].tipoIndirizzo,
+                nome: user.anagrafiche[i].nome,
+                cognome: user.anagrafiche[i].cognome,
+                via: user.anagrafiche[i].via,
+                citta: user.anagrafiche[i].citta,
+                cap: user.anagrafiche[i].cap,
+                nazione : user.anagrafiche[i].nazione,
+                telefono : user.anagrafiche[i].telefono,
+                codiceFiscale: user.anagrafiche[i].codiceFiscale,
+                partitaIva: user.anagrafiche[i].partitaIva
+              });
+
+              indirizzoTrovato = true;
+
+              break;
+            }
+          }
+
+          if (!indirizzoTrovato) {
+            this.indirizzoForm.reset({
+              tipoIndirizzo: this.indirizzoForm.get('tipoIndirizzo')?.value
+            });
+          }
+        })
+      });
+    }
+
+  }
+
+  vaiAlCarrello() {
+    this.router.navigate([ '/dash','cart']);
+  }
+
+  vaiAlPagamento() {
+    
   }
 
 }
