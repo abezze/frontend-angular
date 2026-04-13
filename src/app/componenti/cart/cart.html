@@ -170,6 +170,9 @@
                     @if (ordine.statoOrdine === "CONFERMATO"){
                         &nbsp;<button mat-raised-button color="primary"  (click)="vaiAlPagamento()" >Vai al pagamento</button>
                     }
+                    @if (ordine.statoOrdine === "CONSEGNATO"){
+                        &nbsp;<button mat-raised-button color="primary"  (click)="restituisciOrdine()" >Restituisci</button>
+                    }
                 }
             } @else if(dettagli.length > 0) {
                 &nbsp;<button mat-raised-button color="primary"  (click)="eliminaOrdine()" >Elimina Ordine</button>

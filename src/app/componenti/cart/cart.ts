@@ -223,6 +223,26 @@ constructor(
     this.router.navigate([ '/dash','cart']);
   }
 
+   restituisciOrdine() {
+    this.ordine.statoOrdine = "RESTITUITO";
+    this.ordineS.update(this.ordine).subscribe({
+      next: () => {
+        console.log("Ordine " + this.ordine.id + " aggiornato correttamente");
+        if(this.isVisualizza) {
+          this.router.navigate(["/dash/visualizzaordini"], { 
+            state: { mode: 'VISUALIZZA' } 
+          });
+        } else if(this.mode === "ORDINE") {
+          this.router.navigate(["/dash/ordini"]);
+        } else {
+          this.router.navigate(['/dash/home']);
+        }
+      },
+      error: err => console.error("Errore durante il l'aggiornamento dell'ordine " + this.ordine.id + ": ", err)
+    });
+      
+   }
+
   vaiAlPagamento() {
     
   }
