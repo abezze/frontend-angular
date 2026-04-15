@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ProdottoService } from '../../services/prodotto-service';
 import { Utilities } from '../../services/utilities';
 import { AuthServices } from '../../auth/auth-services';
@@ -7,6 +7,8 @@ import { Dashboard } from '../dashboard/dashboard';
 import { Router } from '@angular/router';
 import { DettaglioService } from '../../services/dettaglio-service';
 import { ShowImageDialog } from '../../dialogs/show-image-dialog/show-image-dialog';
+import { LoginDialog } from '../../dialogs/login-dialog/login-dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,7 @@ import { ShowImageDialog } from '../../dialogs/show-image-dialog/show-image-dial
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
-
+  readonly dialog = inject(MatDialog);
   ordineId:number;
   categoria: any;
   produttore : any;
@@ -72,8 +74,15 @@ export class Home implements OnInit {
 
   }
   addToCart(bike : any){
-
-      this.ordineId = this.ordineS.cercaOrdineInCorso(this.auth.grant().userId, bike);
+      if (this.auth.grant().isLogged) {
+        this.ordineId = this.ordineS.cercaOrdineInCorso(this.auth.grant().userId, bike);
+      } else {
+        this.dialog.open(LoginDialog, {
+              width: '400px',
+              disableClose: false,
+              data: {}
+            });
+      }
 
       //this.ordineS.ordine
       /*this.creatoDett = this.ordineS.aggiungiDettaglio(bike, this.ordineId);

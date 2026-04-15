@@ -37,6 +37,7 @@ import { ProduttoreDialog } from './dialogs/produttore-dialog/produttore-dialog'
 import { GestioneOrdini } from './componenti/gestione-ordini/gestione-ordini';
 import { ShowImageDialog } from './dialogs/show-image-dialog/show-image-dialog';
 import { PagamentoDialog } from './dialogs/pagamento-dialog/pagamento-dialog';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -63,23 +64,24 @@ import { PagamentoDialog } from './dialogs/pagamento-dialog/pagamento-dialog';
     FormsModule,
     ReactiveFormsModule,
     MatFormField,
-     MatInputModule,
-     MatButtonModule,
-     MatFormFieldModule,
-     MatSidenavModule,
-     MatListModule,
-     MatToolbarModule,
-     MatIconModule,
-     MatTooltipModule,
-     MatMenuModule,
-     MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatDialogModule,
     MatRadioModule,
     MatCardModule,
     MatSelectModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatBadgeModule,
-    MatExpansionModule
+    MatExpansionModule,
+    CommonModule
   ],
   providers: [
     provideHttpClient(withFetch()),

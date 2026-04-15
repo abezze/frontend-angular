@@ -109,47 +109,46 @@ export class OrdineService {
     return this.http.get<any[]>(this.urlOrd + "cercaOrdiniFiltrati", {params});
   }
 
-  confermaOrdine(ordine: any, userName: string, indirizzoSedizione: any) {
-    if (ordine) {
-      console.log("TODO");
-    } else {
-      this.findLastByUtenteAndStatoOrdine(userName).subscribe({
-        next: (ordineTrovato: any) => {
-          indirizzoSedizione.ordineId = ordineTrovato.id;
-          this.indirizzoSpedizioneS.create(indirizzoSedizione).subscribe({
-            next: () => {
-              console.log("Indirizzo di spedizione salvato correttamente");
-            },
-            error: err => console.error("Errore durante il salvataggio dell'indirizzo di spedizione: ", err)
-          });
+  confermaOrdine(userName: string, indirizzoSedizione: any) {
+    this.findLastByUtenteAndStatoOrdine(userName).subscribe({
+      next: (ordineTrovato: any) => {
+        indirizzoSedizione.ordineId = ordineTrovato.id;
+        this.indirizzoSpedizioneS.create(indirizzoSedizione).subscribe({
+          next: () => {
+            console.log("Indirizzo di spedizione salvato correttamente");
+            ordineTrovato.statoOrdine = "CONFERMATO";
+            this.update(ordineTrovato).subscribe({
+              next: () => {
+                console.log("Ordine " + ordineTrovato.id + " aggiornato correttamente");
+              },
+              error: err => console.error("Errore durante il l'aggiornamento dell'ordine " + ordineTrovato.id + ": ", err)
+            });
+          },
+          error: err => console.error("Errore durante il salvataggio dell'indirizzo di spedizione: ", err)
+        });
 
-          ordineTrovato.statoOrdine = "CONFERMATO";
-          this.update(ordineTrovato).subscribe({
-            next: () => {
-              console.log("Ordine " + ordineTrovato.id + " aggiornato correttamente");
-            },
-            error: err => console.error("Errore durante il l'aggiornamento dell'ordine " + ordineTrovato.id + ": ", err)
-          });
+        const dialogRef = this.util.openDialog(PagamentoDialog,
+          {
+            totale: ordineTrovato.dettagli.reduce((acc: number, p: any) => acc + (p.prodotto.prezzo * p.quantita), 0),
+            ordine: ordineTrovato
+          },
+          {
+            width: '90vw',
+            maxWidth: '1200px',
+            height: 'auto',
+          }
+        );
 
-          const dialogRef = this.util.openDialog(PagamentoDialog,
-            null,
-            {
-              width: '90vw',
-              maxWidth: '1200px',
-              height: 'auto',
-            }
-          );
+        console.log("dialogRef", dialogRef);
 
-          console.log("dialogRef", dialogRef);
-
-          dialogRef.afterClosed().subscribe(result => {
-            console.log("afterClosed", result);
-            this.router.navigate([ '/dash/home']);
-          });
-        },
-        error: err => console.error("Ordine non trovato: ", err)
-      });
-    }
+        dialogRef.afterClosed().subscribe(result => {
+          console.log("afterClosed", result);
+          this.dettaglioS.cercaOrdineInCorso(userName);
+          this.router.navigate([ '/dash/home']);
+        });
+      },
+      error: err => console.error("Ordine non trovato: ", err)
+    });
   }
 
   findLastByUtenteAndStatoOrdine(userName: string){

@@ -2,8 +2,68 @@
     <button mat-icon-button mat-dialog-close class="dialog-close-btn">
         <mat-icon>close</mat-icon>
     </button>
-    <h2 mat-dialog-title>Pagamento</h2>
+    <h2 mat-dialog-title style="text-align: center;">
+        Pagamento dell'ordine numero {{ordine.id}}<br />
+        TOTALE: {{totale | currency:'EUR'}}
+    </h2>
     <mat-dialog-content>
-        dati pagamento
+        <form [formGroup]="pagamentoForm" (ngSubmit)="onSubmit()">
+                <input type="hidden" name="id">
+                <input type="hidden" name="ordineId">
+                <input type="hidden" name="amount">
+            <mat-form-field>
+                <mat-label>Tipo Pagamento</mat-label>
+                <mat-select name="tipoPagamentoId" formControlName="tipoPagamentoId" (selectionChange)="cambiaForm($event.value);">
+                    @for (tipoPagamento of (tipiPagamentoList$ | async); track tipoPagamento.id) {
+                        <mat-option [value]="tipoPagamento.id">{{ tipoPagamento.tipoPagamento }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            @if (mostraInputCartaDiCredito) {
+                <div class="form-grid">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Titolare della carta</mat-label>
+                        <input matInput type="text" name="nomeTitolareCarta" formControlName="nomeTitolareCarta">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Numero della carta</mat-label>
+                        <input matInput type="text" name="numeroCarta" formControlName="numeroCarta">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Data di scadenza</mat-label>
+                        <input matInput type="text" name="dataScadenzaCarta" formControlName="dataScadenzaCarta">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>CVV</mat-label>
+                        <input matInput type="text" name="cvv" formControlName="cvv">
+                    </mat-form-field>
+                </div>
+            } @else if (mostraInputPayPal) {
+                <div>
+                    <h3>Accedi e paga direttamente con PayPal:</h3>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nome Utente</mat-label>
+                        <input matInput type="text" name="nomeUtentePayPal" formControlName="nomeUtentePayPal">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" name="passwordPayPal" formControlName="passwordPayPal">
+                    </mat-form-field>
+                </div>
+            } @else if (mostraInputBonificoBancario) {
+                <div>
+                    <h3>Dati per effettuare il bonifico bancario:</h3>
+                    <ul>
+                        <li><strong>Intestatario:</strong> EcomBike</li>
+                        <li><strong>IBAN:</strong> IT99C1234567890123456789012</li>
+                        <li><strong>BIC/SWIFT:</strong> UNBKITMMXXX</li>
+                        <li><strong>Causale:</strong> Ordine numero {{ordine.id}} di {{ordine.utente.userName}}</li>
+                    </ul>
+                </div>
+            }
+            <div class="button-group">
+                <button class="btn btn-primary" type="submit" [disabled]="!pagamentoForm.valid">Paga</button>
+            </div>
+        </form>
     </mat-dialog-content>
 </div>

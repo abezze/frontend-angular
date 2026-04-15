@@ -7,6 +7,7 @@ import { AuthServices } from '../../auth/auth-services';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtenteService } from '../../services/utente-service';
+import { PagamentoDialog } from '../../dialogs/pagamento-dialog/pagamento-dialog';
 
 @Component({
   selector: 'app-cart',
@@ -42,7 +43,8 @@ constructor(
       private router: Router,
       public auth:AuthServices,
       private utenteS: UtenteService,
-      private accoutServices: UtenteService
+      private accoutServices: UtenteService,
+      private util: Utilities
     ) {
   }
 
@@ -128,7 +130,7 @@ constructor(
     }
     
     console.log("IndirizzoForm: ", this.indirizzoForm.value);
-    this.ordineS.confermaOrdine(this.ordine, this.auth.grant().userId, this.indirizzoForm.value);
+    this.ordineS.confermaOrdine(this.auth.grant().userId, this.indirizzoForm.value);
   }
 
   eliminaOrdine() {
@@ -244,7 +246,17 @@ constructor(
    }
 
   vaiAlPagamento() {
-    
+    const dialogRef = this.util.openDialog(PagamentoDialog,
+      {
+        totale: this.totale,
+        ordine: this.ordine
+      },
+      {
+        width: '90vw',
+        maxWidth: '1200px',
+        height: 'auto'
+      }
+    );
   }
 
 }
